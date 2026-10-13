@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "nev": "Leó",
+    "faj": "oroszlán",
+    "kontinens": "Afrika",
+    "szuletesiEv": 2014,
+    "gondozo": "Kovács Péter"
+  },
+  {
+    "id": 2,
+    "nev": "Szimba",
+    "faj": "oroszlán",
+    "kontinens": "Afrika",
+    "szuletesiEv": 2019,
+    "gondozo": "Kovács Péter"
+  },
+  {
+    "id": 3,
+    "nev": "Dumbó",
+    "faj": "afrikai elefánt",
+    "kontinens": "Afrika",
+    "szuletesiEv": 2008,
+    "gondozo": "Varga Júlia"
+  },
+  {
+    "id": 4,
+    "nev": "Rani",
+    "faj": "indiai elefánt",
+    "kontinens": "Ázsia",
+    "szuletesiEv": 2001,
+    "gondozo": "Varga Júlia"
+  },
+  {
+    "id": 5,
+    "nev": "Csíkos",
+    "faj": "zebra",
+    "kontinens": "Afrika",
+    "szuletesiEv": 2017,
+    "gondozo": "Kovács Péter"
+  },
+  {
+    "id": 6,
+    "nev": "Panni",
+    "faj": "óriáspanda",
+    "kontinens": "Ázsia",
+    "szuletesiEv": 2012,
+    "gondozo": "Szabó Ilona"
+  },
+  {
+    "id": 7,
+    "nev": "Kenguru Karcsi",
+    "faj": "vörös óriáskenguru",
+    "kontinens": "Ausztrália",
+    "szuletesiEv": 2020,
+    "gondozo": "Szabó Ilona"
+  },
+  {
+    "id": 8,
+    "nev": "Ernő",
+    "faj": "eszkimó farkas",
+    "kontinens": "Észak-Amerika",
+    "szuletesiEv": 2016,
+    "gondozo": "Tóth Gábor"
+  },
+  {
+    "id": 9,
+    "nev": "Bundi",
+    "faj": "barna medve",
+    "kontinens": "Európa",
+    "szuletesiEv": 2005,
+    "gondozo": "Tóth Gábor"
+  },
+  {
+    "id": 10,
+    "nev": "Ági",
+    "faj": "szürke farkas",
+    "kontinens": "Európa",
+    "szuletesiEv": 2018,
+    "gondozo": "Tóth Gábor"
+  }
+]

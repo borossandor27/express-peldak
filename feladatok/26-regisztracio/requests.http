@@ -1,0 +1,147 @@
+### =====================================================
+### 26. feladat - tesztkérések (VS Code REST Client)
+### A sorszámok a FELADATOK-3.md táblázatának soraival egyeznek.
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes felhasználó
+GET {{url}}/felhasznalok
+
+### 1. Érvényes -> 201 + az új felhasználó (id: 4)
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "nagy_peti", "email": "peti@pelda.hu", "kor": 16, "pontszam": 50, "hirlevel": true }
+
+### 2. kor: 14 (határérték) -> 201
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "kis_lili", "email": "lili@pelda.hu", "kor": 14, "pontszam": 10, "hirlevel": false }
+
+### 3. pontszam: 0 -> 201
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "kezdo_karcsi", "email": "karcsi@pelda.hu", "kor": 15, "pontszam": 0, "hirlevel": false }
+
+### 4. Szóközökkel -> 201, "anna_01" néven mentve
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "  anna_01 ", "email": "anna01@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 5. Csupa szóköz név -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "    ", "email": "x@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 6. Túl rövid név -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "ab", "email": "ab@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 7. Hibás email -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_02", "email": "anna.gmail.com", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 8. kor szövegként -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_03", "email": "a3@pelda.hu", "kor": "16", "pontszam": 5, "hirlevel": true }
+
+### 9. kor nem egész -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_04", "email": "a4@pelda.hu", "kor": 15.5, "pontszam": 5, "hirlevel": true }
+
+### 10. kor túl kicsi -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_05", "email": "a5@pelda.hu", "kor": 13, "pontszam": 5, "hirlevel": true }
+
+### 11. kor túl nagy -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_06", "email": "a6@pelda.hu", "kor": 100, "pontszam": 5, "hirlevel": true }
+
+### 12. negatív pontszám -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_07", "email": "a7@pelda.hu", "kor": 17, "pontszam": -1, "hirlevel": true }
+
+### 13. hirlevel nem logikai -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_08", "email": "a8@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": "igen" }
+
+### 14. Hiányzó email -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_09", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 15. Ismeretlen mező -> 400
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "anna_10", "email": "a10@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": true, "admin": true }
+
+### 16. Minden mező rossz -> 400, legalább 5 hibaüzenettel
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "", "email": "x", "kor": "sok", "pontszam": -5, "hirlevel": 1 }
+
+### 17. Foglalt név (kis- és nagybetű nem számít) -> 409
+POST {{url}}/felhasznalok
+Content-Type: application/json
+
+{ "felhasznalonev": "KISS_ANNA", "email": "masik@pelda.hu", "kor": 17, "pontszam": 5, "hirlevel": true }
+
+### 18. PATCH: csak a kor -> 200, a többi mező megmarad
+PATCH {{url}}/felhasznalok/2
+Content-Type: application/json
+
+{ "kor": 30 }
+
+### 19. PATCH: üres törzs -> 400
+PATCH {{url}}/felhasznalok/2
+Content-Type: application/json
+
+{}
+
+### 20. PATCH: üres email -> 400
+PATCH {{url}}/felhasznalok/2
+Content-Type: application/json
+
+{ "email": "" }
+
+### 21. PATCH: pontszam 0 -> 200
+PATCH {{url}}/felhasznalok/1
+Content-Type: application/json
+
+{ "pontszam": 0 }
+
+### 22. PATCH: foglalt név -> 409
+PATCH {{url}}/felhasznalok/2
+Content-Type: application/json
+
+{ "felhasznalonev": "DORI" }
+
+### 23. PATCH: nem létező id -> 404
+PATCH {{url}}/felhasznalok/99
+Content-Type: application/json
+
+{ "kor": 20 }

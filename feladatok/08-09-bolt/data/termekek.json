@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "nev": "Füzet A4 vonalas",
+    "kategoria": "papíráru",
+    "ar": 390,
+    "keszlet": 120
+  },
+  {
+    "id": 2,
+    "nev": "Golyóstoll kék",
+    "kategoria": "íróeszköz",
+    "ar": 250,
+    "keszlet": 300
+  },
+  {
+    "id": 3,
+    "nev": "Grafitceruza HB",
+    "kategoria": "íróeszköz",
+    "ar": 150,
+    "keszlet": 0
+  },
+  {
+    "id": 4,
+    "nev": "Radír",
+    "kategoria": "íróeszköz",
+    "ar": 180,
+    "keszlet": 75
+  },
+  {
+    "id": 5,
+    "nev": "Iskolatáska",
+    "kategoria": "táska",
+    "ar": 12990,
+    "keszlet": 8
+  },
+  {
+    "id": 6,
+    "nev": "Tolltartó",
+    "kategoria": "táska",
+    "ar": 2490,
+    "keszlet": 0
+  },
+  {
+    "id": 7,
+    "nev": "Számológép",
+    "kategoria": "elektronika",
+    "ar": 5990,
+    "keszlet": 15
+  },
+  {
+    "id": 8,
+    "nev": "Füzet A5 négyzetrácsos",
+    "kategoria": "papíráru",
+    "ar": 290,
+    "keszlet": 200
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "tema": "informatika",
+    "kerdes": "Melyik HTTP metódussal hozunk létre új erőforrást?",
+    "valaszok": [
+      "GET",
+      "POST",
+      "DELETE",
+      "HEAD"
+    ],
+    "helyes": 1
+  },
+  {
+    "id": 2,
+    "tema": "informatika",
+    "kerdes": "Mit jelent a 404-es státuszkód?",
+    "valaszok": [
+      "Szerverhiba",
+      "Sikeres létrehozás",
+      "Nem található",
+      "Tiltott"
+    ],
+    "helyes": 2
+  },
+  {
+    "id": 3,
+    "tema": "informatika",
+    "kerdes": "Melyik middleware dolgozza fel a JSON törzset Expressben?",
+    "valaszok": [
+      "express.static()",
+      "express.json()",
+      "express.Router()",
+      "express.text()"
+    ],
+    "helyes": 1
+  },
+  {
+    "id": 4,
+    "tema": "informatika",
+    "kerdes": "Hány bit egy bájt?",
+    "valaszok": [
+      "4",
+      "8",
+      "16",
+      "1024"
+    ],
+    "helyes": 1
+  },
+  {
+    "id": 5,
+    "tema": "földrajz",
+    "kerdes": "Mi Magyarország legmagasabb pontja?",
+    "valaszok": [
+      "Kékes",
+      "Galya-tető",
+      "Dobogókő",
+      "Írott-kő"
+    ],
+    "helyes": 0
+  },
+  {
+    "id": 6,
+    "tema": "földrajz",
+    "kerdes": "Melyik folyó folyik át Szegeden?",
+    "valaszok": [
+      "Duna",
+      "Rába",
+      "Tisza",
+      "Dráva"
+    ],
+    "helyes": 2
+  },
+  {
+    "id": 7,
+    "tema": "földrajz",
+    "kerdes": "Melyik a Balaton legnagyobb félszigete?",
+    "valaszok": [
+      "Szigligeti",
+      "Tihanyi",
+      "Badacsonyi",
+      "Szántódi"
+    ],
+    "helyes": 1
+  },
+  {
+    "id": 8,
+    "tema": "történelem",
+    "kerdes": "Melyik évben volt a kiegyezés?",
+    "valaszok": [
+      "1848",
+      "1849",
+      "1867",
+      "1956"
+    ],
+    "helyes": 2
+  },
+  {
+    "id": 9,
+    "tema": "történelem",
+    "kerdes": "Ki volt az első magyar király?",
+    "valaszok": [
+      "Géza fejedelem",
+      "Szent László",
+      "Szent István",
+      "Könyves Kálmán"
+    ],
+    "helyes": 2
+  },
+  {
+    "id": 10,
+    "tema": "történelem",
+    "kerdes": "Melyik évben volt a mohácsi csata?",
+    "valaszok": [
+      "1456",
+      "1526",
+      "1541",
+      "1686"
+    ],
+    "helyes": 1
+  }
+]

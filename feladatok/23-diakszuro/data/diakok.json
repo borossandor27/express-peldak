@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "nev": "Kiss Anna",
+    "osztaly": "13.A",
+    "nem": "lány",
+    "atlag": 4.5,
+    "hianyzas": 2
+  },
+  {
+    "id": 2,
+    "nev": "Nagy Bence",
+    "osztaly": "13.B",
+    "nem": "fiú",
+    "atlag": 3.2,
+    "hianyzas": 14
+  },
+  {
+    "id": 3,
+    "nev": "Kovács Dóra",
+    "osztaly": "13.C",
+    "nem": "lány",
+    "atlag": 4.0,
+    "hianyzas": 0
+  },
+  {
+    "id": 4,
+    "nev": "Szabó Ádám",
+    "osztaly": "13.A",
+    "nem": "fiú",
+    "atlag": 2.8,
+    "hianyzas": 21
+  },
+  {
+    "id": 5,
+    "nev": "Tóth Emese",
+    "osztaly": "13.B",
+    "nem": "lány",
+    "atlag": 5.0,
+    "hianyzas": 0
+  },
+  {
+    "id": 6,
+    "nev": "Horváth Csaba",
+    "osztaly": "13.C",
+    "nem": "fiú",
+    "atlag": 3.5,
+    "hianyzas": 6
+  },
+  {
+    "id": 7,
+    "nev": "Varga Zsófia",
+    "osztaly": "13.A",
+    "nem": "lány",
+    "atlag": 3.9,
+    "hianyzas": 3
+  },
+  {
+    "id": 8,
+    "nev": "Kis Gergely",
+    "osztaly": "13.B",
+    "nem": "fiú",
+    "atlag": 4.2,
+    "hianyzas": 0
+  },
+  {
+    "id": 9,
+    "nev": "Molnár Éva",
+    "osztaly": "13.C",
+    "nem": "lány",
+    "atlag": 2.5,
+    "hianyzas": 30
+  },
+  {
+    "id": 10,
+    "nev": "Németh Ákos",
+    "osztaly": "13.A",
+    "nem": "fiú",
+    "atlag": 4.0,
+    "hianyzas": 8
+  },
+  {
+    "id": 11,
+    "nev": "Ábrahám Lili",
+    "osztaly": "13.B",
+    "nem": "lány",
+    "atlag": 3.5,
+    "hianyzas": 1
+  },
+  {
+    "id": 12,
+    "nev": "Balogh Ödön",
+    "osztaly": "13.C",
+    "nem": "fiú",
+    "atlag": 4.8,
+    "hianyzas": 4
+  },
+  {
+    "id": 13,
+    "nev": "Papp Ágnes",
+    "osztaly": "13.A",
+    "nem": "lány",
+    "atlag": 3.0,
+    "hianyzas": 11
+  },
+  {
+    "id": 14,
+    "nev": "Lakatos Botond",
+    "osztaly": "13.B",
+    "nem": "fiú",
+    "atlag": 4.6,
+    "hianyzas": 0
+  }
+]

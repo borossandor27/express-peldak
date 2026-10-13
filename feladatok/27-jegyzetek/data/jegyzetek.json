@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "cim": "Bevásárlás",
+    "szoveg": "tej, kenyér, tojás",
+    "fontos": false,
+    "letrehozva": "2026-09-28T16:20:00.000Z"
+  },
+  {
+    "id": 2,
+    "cim": "Matek dolgozat",
+    "szoveg": "csütörtök, 3. óra – függvények",
+    "fontos": true,
+    "letrehozva": "2026-09-29T07:45:00.000Z"
+  },
+  {
+    "id": 3,
+    "cim": "Edzés",
+    "szoveg": "",
+    "fontos": false,
+    "letrehozva": "2026-09-30T18:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "cim": "Backend beadandó",
+    "szoveg": "Express CRUD, határidő péntek",
+    "fontos": true,
+    "letrehozva": "2026-10-01T10:10:00.000Z"
+  },
+  {
+    "id": 6,
+    "cim": "Szülinap",
+    "szoveg": "Ajándék Petinek",
+    "fontos": false,
+    "letrehozva": "2026-10-03T12:00:00.000Z"
+  }
+]

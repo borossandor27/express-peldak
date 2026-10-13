@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nev": "Kiss Anna",
+    "email": "kiss.anna@diak.hu"
+  },
+  {
+    "id": 2,
+    "nev": "Nagy Péter",
+    "email": "nagy.peter@diak.hu"
+  },
+  {
+    "id": 3,
+    "nev": "Szabó Lili",
+    "email": "szabo.lili@diak.hu"
+  }
+]

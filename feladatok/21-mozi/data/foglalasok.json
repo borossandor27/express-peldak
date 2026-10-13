@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "vetitesId": 1,
+    "nev": "Kiss Anna",
+    "helyek": [
+      { "sor": 2, "szek": 3 },
+      { "sor": 2, "szek": 4 }
+    ],
+    "ar": 5000
+  },
+  {
+    "id": 2,
+    "vetitesId": 1,
+    "nev": "Nagy Péter",
+    "helyek": [
+      { "sor": 4, "szek": 1 }
+    ],
+    "ar": 2500
+  },
+  {
+    "id": 3,
+    "vetitesId": 2,
+    "nev": "Szabó Lili",
+    "helyek": [
+      { "sor": 5, "szek": 5 },
+      { "sor": 5, "szek": 6 },
+      { "sor": 5, "szek": 7 }
+    ],
+    "ar": 7500
+  }
+]

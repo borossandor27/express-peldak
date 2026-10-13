@@ -1,0 +1,90 @@
+### =====================================================
+### 27. feladat - tesztkérések (VS Code REST Client)
+### Minden kérés fölött ott van a VÁRT válasz. Hasonlítsd össze
+### a kapottal: státuszkód, és hogy objektum / tömb / üres jön-e!
+### Fentről lefelé futtasd, a kérések egymásra épülnek.
+### =====================================================
+
+@url = http://localhost:3000
+
+### Várt: 200, tömb, 5 jegyzet (id: 1, 2, 3, 4, 6)
+GET {{url}}/jegyzetek
+
+### Várt: 200, tömb: 2, 4
+GET {{url}}/jegyzetek?fontos=true
+
+### Várt: 200, tömb: 1, 3, 6
+GET {{url}}/jegyzetek?fontos=false
+
+### Várt: 400, { "hiba": "..." }
+GET {{url}}/jegyzetek?fontos=igen
+
+### Várt: 200, OBJEKTUM { "id": 2, "cim": "Matek dolgozat", ... }
+GET {{url}}/jegyzetek/2
+
+### Várt: 404, { "hiba": "Nincs ilyen jegyzet" }   (az 5-ös id nincs!)
+GET {{url}}/jegyzetek/5
+
+### Várt: 201, { "id": 7, "cim": "Fogorvos", "szoveg": "kedd 14:00", "fontos": true, "letrehozva": "..." }
+### (NEM "Sikeres mentés" szöveg, és NEM 6-os id!)
+POST {{url}}/jegyzetek
+Content-Type: application/json
+
+{ "cim": "Fogorvos", "szoveg": "kedd 14:00", "fontos": true }
+
+### Várt: 201, az id 8 (a küldött 100-at figyelmen kívül hagyja)
+POST {{url}}/jegyzetek
+Content-Type: application/json
+
+{ "id": 100, "cim": "Csalás", "szoveg": "", "fontos": false }
+
+### Várt: 400, { "hibak": [ "Hiányzó mező: cim" ] }
+POST {{url}}/jegyzetek
+Content-Type: application/json
+
+{ "szoveg": "x", "fontos": false }
+
+### Várt: 400 - a "true" szöveg, nem logikai érték
+POST {{url}}/jegyzetek
+Content-Type: application/json
+
+{ "cim": "X", "szoveg": "x", "fontos": "true" }
+
+### Várt: 200, { "id": 1, "cim": "Bevásárlás (hétvége)", ..., "letrehozva": "2026-09-28T16:20:00.000Z" }
+PUT {{url}}/jegyzetek/1
+Content-Type: application/json
+
+{ "cim": "Bevásárlás (hétvége)", "szoveg": "tej, sajt", "fontos": true }
+
+### Várt: 400 - PUT-nál minden mező kötelező
+PUT {{url}}/jegyzetek/1
+Content-Type: application/json
+
+{ "cim": "Csak cím" }
+
+### Várt: 200, a cim "Edzés", a szoveg "" marad, csak a fontos lesz true
+PATCH {{url}}/jegyzetek/3
+Content-Type: application/json
+
+{ "fontos": true }
+
+### Várt: 200, a cim változik, a szin NEM kerül be, az id 3 marad
+PATCH {{url}}/jegyzetek/3
+Content-Type: application/json
+
+{ "cim": "Edzés (kedd)", "szin": "piros", "id": 50 }
+
+### Várt: 400 - nincs egyetlen ismert mező sem
+PATCH {{url}}/jegyzetek/3
+Content-Type: application/json
+
+{ "szin": "kék" }
+
+### Várt: 204, ÜRES válasz (nincs törzs!)
+DELETE {{url}}/jegyzetek/6
+
+### Várt: 404
+GET {{url}}/jegyzetek/6
+
+### Várt: 404
+DELETE {{url}}/jegyzetek/99

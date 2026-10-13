@@ -1,0 +1,70 @@
+### =====================================================
+### 28. feladat - tesztkérések (VS Code REST Client)
+### A kijavított szervernek ezeket a válaszokat kell adnia.
+### Figyeld a szerver terminálját is: ott jelennek meg a hibaüzenetek!
+### =====================================================
+
+@url = http://localhost:3000
+
+### Várt: 200, mind a 8 termék
+GET {{url}}/termekek
+
+### Várt: 1, 2, 3
+GET {{url}}/termekek?kategoria=labda
+
+### Várt: 4, 6, 7, 8 (a 4990 Ft-os is!)
+GET {{url}}/termekek?maxAr=4990
+
+### Várt: 4, 6
+GET {{url}}/termekek?kategoria=fitnesz&maxAr=5000
+
+### Várt: a készleten lévők: 1, 3, 4, 5, 7, 8
+GET {{url}}/termekek/raktaron
+
+### Várt: 1, 2, 3
+GET {{url}}/termekek/kereses/LABDA
+
+### Várt: 200, objektum: Röplabda
+GET {{url}}/termekek/3
+
+### Várt: 404 + JSON, és a szerver terminálján NEM jelenik meg hiba
+GET {{url}}/termekek/99
+
+### Várt: 201 + { "id": 9, ..., "keszlet": 0 }
+POST {{url}}/termekek
+Content-Type: application/json
+
+{ "nev": "Teniszlabda", "kategoria": "labda", "ar": 1490, "keszlet": 0 }
+
+### Várt: 400
+POST {{url}}/termekek
+Content-Type: application/json
+
+{ "nev": "Hibás", "kategoria": "labda", "ar": -5, "keszlet": 1 }
+
+### Várt: 200 + a módosított termék
+PUT {{url}}/termekek/2
+Content-Type: application/json
+
+{ "nev": "Kosárlabda Pro", "kategoria": "labda", "ar": 12990, "keszlet": 4 }
+
+### Várt: 400
+PUT {{url}}/termekek/2
+Content-Type: application/json
+
+{ "nev": "Csak név" }
+
+### Várt: 404
+PUT {{url}}/termekek/99
+Content-Type: application/json
+
+{ "nev": "X", "kategoria": "x", "ar": 1, "keszlet": 1 }
+
+### Várt: 204, üres válasz
+DELETE {{url}}/termekek/1
+
+### Várt: 404
+DELETE {{url}}/termekek/99
+
+### Várt: 404 + JSON
+GET {{url}}/semmi

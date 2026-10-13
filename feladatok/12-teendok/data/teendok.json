@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "cim": "Matek házi: 45. oldal",
+    "prioritas": "magas",
+    "hatarido": "2026-09-25",
+    "kesz": false
+  },
+  {
+    "id": 2,
+    "cim": "Könyvtárba visszavinni a Tüskevárt",
+    "prioritas": "közepes",
+    "hatarido": "2026-10-10",
+    "kesz": false
+  },
+  {
+    "id": 3,
+    "cim": "Angol szavak tanulása",
+    "prioritas": "alacsony",
+    "hatarido": "2026-09-20",
+    "kesz": true
+  },
+  {
+    "id": 4,
+    "cim": "Webprogramozás beadandó",
+    "prioritas": "magas",
+    "hatarido": "2026-10-20",
+    "kesz": false
+  },
+  {
+    "id": 5,
+    "cim": "Tornacucc kimosása",
+    "prioritas": "alacsony",
+    "hatarido": "2026-09-28",
+    "kesz": true
+  }
+]

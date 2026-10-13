@@ -1,0 +1,93 @@
+### =====================================================
+### 22. feladat - tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+@kulcs = tanar123
+
+########## Kitöltés ##########
+
+### Témák és kérdések száma
+GET {{url}}/kviz/temak
+
+### 3 véletlen informatika kérdés (helyes válasz NÉLKÜL!)
+GET {{url}}/kviz/uj?db=3&tema=informatika
+
+### Nem létező téma -> 404
+GET {{url}}/kviz/uj?tema=zene
+
+### Válaszok beküldése (a valasz a választott lehetőség indexe, 0-tól)
+POST {{url}}/kviz/ellenoriz
+Content-Type: application/json
+
+{
+  "nev": "Szabó Lili",
+  "valaszok": [
+    { "id": 1, "valasz": 3 },
+    { "id": 2, "valasz": 2 },
+    { "id": 3, "valasz": 1 }
+  ]
+}
+
+### Nem létező kérdés -> 400
+POST {{url}}/kviz/ellenoriz
+Content-Type: application/json
+
+{
+  "nev": "X",
+  "valaszok": [{ "id": 99, "valasz": 0 }]
+}
+
+### Toplista
+GET {{url}}/kviz/toplista?db=3
+
+########## Admin ##########
+
+### Kérdések egy témában (helyes válasszal)
+GET {{url}}/kerdesek?tema=földrajz
+
+### Egy kérdés
+GET {{url}}/kerdesek/5
+
+### Új kérdés kulcs nélkül -> 401
+POST {{url}}/kerdesek
+Content-Type: application/json
+
+{
+  "tema": "zene",
+  "kerdes": "Ki szerezte a Himnusz zenéjét?",
+  "valaszok": ["Liszt Ferenc", "Erkel Ferenc", "Kodály Zoltán"],
+  "helyes": 1
+}
+
+### Új kérdés kulccsal -> 201
+POST {{url}}/kerdesek
+Content-Type: application/json
+X-Admin-Kulcs: {{kulcs}}
+
+{
+  "tema": "zene",
+  "kerdes": "Ki szerezte a Himnusz zenéjét?",
+  "valaszok": ["Liszt Ferenc", "Erkel Ferenc", "Kodály Zoltán"],
+  "helyes": 1
+}
+
+### Hibás kérdés -> 400
+POST {{url}}/kerdesek
+Content-Type: application/json
+X-Admin-Kulcs: {{kulcs}}
+
+{
+  "tema": "zene",
+  "kerdes": "x",
+  "valaszok": ["a"],
+  "helyes": 3
+}
+
+### Rossz kulccsal törlés -> 401
+DELETE {{url}}/kerdesek/11
+X-Admin-Kulcs: rossz
+
+### Törlés -> 204
+DELETE {{url}}/kerdesek/11
+X-Admin-Kulcs: {{kulcs}}

@@ -1,0 +1,51 @@
+### =====================================================
+### 25. feladat - tesztkérések (VS Code REST Client)
+### Minden kérésnél nézd meg: OBJEKTUM { } vagy TÖMB [ ] jön vissza?
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes állat -> tömb (10)
+GET {{url}}/allatok
+
+### Nevek -> szövegtömb, Ági az első
+GET {{url}}/allatok/nevek
+
+### Statisztika -> objektum
+GET {{url}}/allatok/statisztika
+
+### Faj részlet -> tömb: 3, 4
+GET {{url}}/allatok/faj/elefánt
+
+### Faj nagybetűvel -> tömb: 8, 10
+GET {{url}}/allatok/faj/FARKAS
+
+### Nincs ilyen faj -> 200 + []
+GET {{url}}/allatok/faj/zsiráf
+
+### Gondozó -> tömb: 8, 9, 10
+GET {{url}}/allatok/gondozo/tóth
+
+### Gondozó nagybetűvel -> tömb: 1, 2, 5
+GET {{url}}/allatok/gondozo/KOVÁCS
+
+### Nincs ilyen gondozó -> 404
+GET {{url}}/allatok/gondozo/nemletezo
+
+### Egy állat -> OBJEKTUM (nem tömb!)
+GET {{url}}/allatok/6
+
+### Nem létező -> 404 + JSON
+GET {{url}}/allatok/99
+
+### Nem szám -> 400 + JSON
+GET {{url}}/allatok/abc
+
+### Nem egész -> 400 + JSON
+GET {{url}}/allatok/2.5
+
+### Ismeretlen végpont -> 404 + JSON
+GET {{url}}/semmi
+
+### Ismeretlen végpont -> 404 + JSON
+GET {{url}}/allatok/6/etetes

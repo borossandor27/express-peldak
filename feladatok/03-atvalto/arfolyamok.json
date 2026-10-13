@@ -1,0 +1,17 @@
+{
+  "base": "HUF",
+  "last_updated": "2026-10-04",
+  "description": "1 egység idegen valuta hány Forintot ér. HUF -> idegen: osztás. Idegen -> HUF: szorzás.",
+  "rates": {
+    "EUR": 395.50,
+    "USD": 365.20,
+    "GBP": 462.80,
+    "CHF": 410.30,
+    "JPY": 2.45,
+    "CNY": 50.60,
+    "PLN": 92.10,
+    "CZK": 15.80,
+    "RON": 79.40,
+    "HRK": 52.30
+  }
+}

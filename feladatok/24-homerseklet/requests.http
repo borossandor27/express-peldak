@@ -1,0 +1,54 @@
+### =====================================================
+### 24. feladat - tesztkérések (VS Code REST Client)
+### Az 1-12. kérés megegyezik a VARAKOZAS.md sorszámaival.
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes mérés (12)
+GET {{url}}/meresek
+
+### 1.
+GET {{url}}/meresek?varos=Budapest&tol=2026-02-01
+
+### 2.
+GET {{url}}/meresek?tol=2026-02-01&ig=2026-02-01
+
+### 3.
+GET {{url}}/meresek?minHo=0
+
+### 4.
+GET {{url}}/meresek?maxHo=0
+
+### 5.
+GET {{url}}/meresek?minHo=-5&maxHo=-3
+
+### 6.
+GET {{url}}/meresek?maxCsapadek=0
+
+### 7.
+GET {{url}}/meresek?maxCsapadek=0.5
+
+### 8.
+GET {{url}}/meresek?varos=debrecen&minHo=1
+
+### 9.
+GET {{url}}/meresek/statisztika?varos=Debrecen
+
+### 10.
+GET {{url}}/meresek/statisztika?tol=2026-03-01
+
+### 11.
+GET {{url}}/meresek?minHo=
+
+### 12.
+GET {{url}}/meresek?ig=2026-1-31
+
+### Statisztika: nincs ilyen város -> 404
+GET {{url}}/meresek/statisztika?varos=Szeged
+
+### Egy mérés (0 fok!)
+GET {{url}}/meresek/5
+
+### Nem létező -> 404
+GET {{url}}/meresek/99

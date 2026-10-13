@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "cim": "A Pál utcai fiúk",
+    "szerzo": "Molnár Ferenc",
+    "ev": 1906,
+    "kiolcsonozve": false
+  },
+  {
+    "id": 2,
+    "cim": "Egri csillagok",
+    "szerzo": "Gárdonyi Géza",
+    "ev": 1899,
+    "kiolcsonozve": true
+  },
+  {
+    "id": 3,
+    "cim": "Légy jó mindhalálig",
+    "szerzo": "Móricz Zsigmond",
+    "ev": 1920,
+    "kiolcsonozve": false
+  },
+  {
+    "id": 4,
+    "cim": "Az ember tragédiája",
+    "szerzo": "Madách Imre",
+    "ev": 1861,
+    "kiolcsonozve": false
+  }
+]

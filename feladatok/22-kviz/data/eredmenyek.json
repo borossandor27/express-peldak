@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "nev": "Kiss Anna",
+    "pont": 4,
+    "osszes": 5,
+    "szazalek": 80,
+    "datum": "2026-10-01"
+  },
+  {
+    "id": 2,
+    "nev": "Nagy Péter",
+    "pont": 3,
+    "osszes": 5,
+    "szazalek": 60,
+    "datum": "2026-10-02"
+  }
+]

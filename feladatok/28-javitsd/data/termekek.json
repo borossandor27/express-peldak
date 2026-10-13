@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "nev": "Focilabda",
+    "kategoria": "labda",
+    "ar": 8990,
+    "keszlet": 12
+  },
+  {
+    "id": 2,
+    "nev": "Kosárlabda",
+    "kategoria": "labda",
+    "ar": 11490,
+    "keszlet": 0
+  },
+  {
+    "id": 3,
+    "nev": "Röplabda",
+    "kategoria": "labda",
+    "ar": 7990,
+    "keszlet": 5
+  },
+  {
+    "id": 4,
+    "nev": "Ugrálókötél",
+    "kategoria": "fitnesz",
+    "ar": 2490,
+    "keszlet": 30
+  },
+  {
+    "id": 5,
+    "nev": "Súlyzó 5 kg",
+    "kategoria": "fitnesz",
+    "ar": 6990,
+    "keszlet": 8
+  },
+  {
+    "id": 6,
+    "nev": "Jógaszőnyeg",
+    "kategoria": "fitnesz",
+    "ar": 4990,
+    "keszlet": 0
+  },
+  {
+    "id": 7,
+    "nev": "Úszószemüveg",
+    "kategoria": "úszás",
+    "ar": 3490,
+    "keszlet": 15
+  },
+  {
+    "id": 8,
+    "nev": "Úszósapka",
+    "kategoria": "úszás",
+    "ar": 1990,
+    "keszlet": 22
+  }
+]

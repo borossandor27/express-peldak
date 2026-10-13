@@ -1,0 +1,14 @@
+[
+  { "id": 1, "fordulo": 1, "hazai": "9.A", "vendeg": "10.A", "hazaiGol": 1, "vendegGol": 3 },
+  { "id": 2, "fordulo": 1, "hazai": "11.A", "vendeg": "12.A", "hazaiGol": 2, "vendegGol": 2 },
+  { "id": 3, "fordulo": 2, "hazai": "10.A", "vendeg": "11.A", "hazaiGol": 4, "vendegGol": 1 },
+  { "id": 4, "fordulo": 2, "hazai": "12.A", "vendeg": "9.A", "hazaiGol": 0, "vendegGol": 1 },
+  { "id": 5, "fordulo": 3, "hazai": "9.A", "vendeg": "11.A", "hazaiGol": 2, "vendegGol": 2 },
+  { "id": 6, "fordulo": 3, "hazai": "10.A", "vendeg": "12.A", "hazaiGol": 1, "vendegGol": 2 },
+  { "id": 7, "fordulo": 4, "hazai": "10.A", "vendeg": "9.A", "hazaiGol": 2, "vendegGol": 0 },
+  { "id": 8, "fordulo": 4, "hazai": "12.A", "vendeg": "11.A", "hazaiGol": 3, "vendegGol": 1 },
+  { "id": 9, "fordulo": 5, "hazai": "11.A", "vendeg": "10.A", "hazaiGol": 0, "vendegGol": 0 },
+  { "id": 10, "fordulo": 5, "hazai": "9.A", "vendeg": "12.A", "hazaiGol": 2, "vendegGol": 3 },
+  { "id": 11, "fordulo": 6, "hazai": "11.A", "vendeg": "9.A", "hazaiGol": 1, "vendegGol": 4 },
+  { "id": 12, "fordulo": 6, "hazai": "12.A", "vendeg": "10.A", "hazaiGol": 1, "vendegGol": 1 }
+]

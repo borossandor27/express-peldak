@@ -1,0 +1,10 @@
+[
+  { "id": 1, "nev": "Kiss Anna", "osztaly": "10.A", "atlag": 4.5, "varos": "Budapest" },
+  { "id": 2, "nev": "Nagy Péter", "osztaly": "10.B", "atlag": 3.2, "varos": "Érd" },
+  { "id": 3, "nev": "Szabó Lili", "osztaly": "10.A", "atlag": 4.9, "varos": "Budapest" },
+  { "id": 4, "nev": "Tóth Bence", "osztaly": "11.A", "atlag": 2.8, "varos": "Vác" },
+  { "id": 5, "nev": "Horváth Eszter", "osztaly": "11.A", "atlag": 3.9, "varos": "Budapest" },
+  { "id": 6, "nev": "Varga Máté", "osztaly": "10.B", "atlag": 4.1, "varos": "Gödöllő" },
+  { "id": 7, "nev": "Molnár Dóra", "osztaly": "11.B", "atlag": 3.5, "varos": "Érd" },
+  { "id": 8, "nev": "Farkas Levente", "osztaly": "11.B", "atlag": 4.7, "varos": "Budapest" }
+]

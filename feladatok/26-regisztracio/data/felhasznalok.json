@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "felhasznalonev": "kiss_anna",
+    "email": "anna@pelda.hu",
+    "kor": 17,
+    "pontszam": 120,
+    "hirlevel": true
+  },
+  {
+    "id": 2,
+    "felhasznalonev": "Bence01",
+    "email": "bence@pelda.hu",
+    "kor": 18,
+    "pontszam": 0,
+    "hirlevel": false
+  },
+  {
+    "id": 3,
+    "felhasznalonev": "dori",
+    "email": "dora.kovacs@iskola.hu",
+    "kor": 45,
+    "pontszam": 310,
+    "hirlevel": true
+  }
+]

@@ -1,0 +1,60 @@
+### =====================================================
+### 23. feladat - tesztkérések (VS Code REST Client)
+### A GET kéréseket böngészőből is kipróbálhatod.
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes diák (14)
+GET {{url}}/diakok
+
+### Egy osztály -> 2, 5, 8, 11, 14
+GET {{url}}/diakok?osztaly=13.B
+
+### Két szűrő együtt -> 1, 7, 13
+GET {{url}}/diakok?nem=lány&osztaly=13.A
+
+### Név részlet, kisbetűvel -> 1, 8
+GET {{url}}/diakok?nev=kis
+
+### Név részlet, NAGYBETŰVEL -> szintén 1, 8
+GET {{url}}/diakok?nev=KIS
+
+### Legalább 4-es átlag (a 4,0 is!) -> 7 diák
+GET {{url}}/diakok?minAtlag=4
+
+### Legfeljebb 3,5-ös átlag (a 3,5 is!) -> 6 diák
+GET {{url}}/diakok?maxAtlag=3.5
+
+### Átlag 3,5 és 4 között -> 3, 6, 7, 10, 11
+GET {{url}}/diakok?minAtlag=3.5&maxAtlag=4
+
+### Nincs hiányzása (a 0 is érték!) -> 3, 5, 8, 14
+GET {{url}}/diakok?maxHianyzas=0
+
+### Kombinált -> 5, 8, 14
+GET {{url}}/diakok?osztaly=13.B&minAtlag=4
+
+### Név szerint (Ábrahám Lili legyen az első!)
+GET {{url}}/diakok?rendez=nev
+
+### A 3 legjobb átlagú -> 5, 12, 14
+GET {{url}}/diakok?rendez=atlag&irany=csokkeno&limit=3
+
+### Hibás: nem szám -> 400
+GET {{url}}/diakok?minAtlag=abc
+
+### Hibás: üres érték -> 400
+GET {{url}}/diakok?minAtlag=
+
+### Hibás: limit=0 -> 400
+GET {{url}}/diakok?limit=0
+
+### Hibás: ismeretlen rendezés -> 400
+GET {{url}}/diakok?rendez=kor
+
+### Egy diák -> objektum (NEM tömb)
+GET {{url}}/diakok/5
+
+### Nem létező -> 404
+GET {{url}}/diakok/99

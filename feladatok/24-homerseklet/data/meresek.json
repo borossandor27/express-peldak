@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "datum": "2026-01-30",
+    "varos": "Budapest",
+    "homerseklet": -3,
+    "csapadek": 0
+  },
+  {
+    "id": 2,
+    "datum": "2026-01-31",
+    "varos": "Budapest",
+    "homerseklet": 0,
+    "csapadek": 2.5
+  },
+  {
+    "id": 3,
+    "datum": "2026-02-01",
+    "varos": "Budapest",
+    "homerseklet": 2.5,
+    "csapadek": 0
+  },
+  {
+    "id": 4,
+    "datum": "2026-02-01",
+    "varos": "Debrecen",
+    "homerseklet": -5,
+    "csapadek": 1
+  },
+  {
+    "id": 5,
+    "datum": "2026-02-02",
+    "varos": "Debrecen",
+    "homerseklet": 0,
+    "csapadek": 0
+  },
+  {
+    "id": 6,
+    "datum": "2026-02-15",
+    "varos": "Budapest",
+    "homerseklet": 4,
+    "csapadek": 0
+  },
+  {
+    "id": 7,
+    "datum": "2026-02-28",
+    "varos": "Debrecen",
+    "homerseklet": 1,
+    "csapadek": 6
+  },
+  {
+    "id": 8,
+    "datum": "2026-03-01",
+    "varos": "Budapest",
+    "homerseklet": 8,
+    "csapadek": 0
+  },
+  {
+    "id": 9,
+    "datum": "2026-03-01",
+    "varos": "Debrecen",
+    "homerseklet": 6.5,
+    "csapadek": 0
+  },
+  {
+    "id": 10,
+    "datum": "2026-03-15",
+    "varos": "Budapest",
+    "homerseklet": 12,
+    "csapadek": 4
+  },
+  {
+    "id": 11,
+    "datum": "2026-03-31",
+    "varos": "Debrecen",
+    "homerseklet": 10,
+    "csapadek": 0
+  },
+  {
+    "id": 12,
+    "datum": "2026-04-01",
+    "varos": "Budapest",
+    "homerseklet": 15,
+    "csapadek": 0.5
+  }
+]

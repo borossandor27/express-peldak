@@ -1,0 +1,119 @@
+### =====================================================
+### 08-09. feladat - tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+
+########## 08. feladat ##########
+
+### Összes termék
+GET {{url}}/termekek
+
+### Egy termék
+GET {{url}}/termekek/3
+
+### Nem létező termék -> 404
+GET {{url}}/termekek/99
+
+### Új termék -> 201
+POST {{url}}/termekek
+Content-Type: application/json
+
+{
+  "nev": "Vonalzó 30 cm",
+  "kategoria": "íróeszköz",
+  "ar": 450,
+  "keszlet": 40
+}
+
+### Hibás új termék -> 400 (4 hibaüzenet)
+POST {{url}}/termekek
+Content-Type: application/json
+
+{
+  "nev": "",
+  "ar": -5,
+  "keszlet": 1.5
+}
+
+### Teljes csere -> 200
+PUT {{url}}/termekek/4
+Content-Type: application/json
+
+{
+  "nev": "Radír puha",
+  "kategoria": "íróeszköz",
+  "ar": 200,
+  "keszlet": 60
+}
+
+### Hiányos PUT -> 400
+PUT {{url}}/termekek/4
+Content-Type: application/json
+
+{
+  "nev": "Radír"
+}
+
+### Részleges módosítás -> 200
+PATCH {{url}}/termekek/5
+Content-Type: application/json
+
+{
+  "ar": 11990
+}
+
+### Hibás részleges módosítás -> 400
+PATCH {{url}}/termekek/5
+Content-Type: application/json
+
+{
+  "ar": "drága"
+}
+
+### Törlés -> 204 (másodszorra 404)
+DELETE {{url}}/termekek/8
+
+########## 09. feladat ##########
+
+### Szűrés
+GET {{url}}/termekek?kategoria=íróeszköz&maxAr=200
+
+### Raktáron lévők
+GET {{url}}/termekek/raktaron
+
+### Keresés
+GET {{url}}/termekek/kereses?q=füzet
+
+### Keresés paraméter nélkül -> 400
+GET {{url}}/termekek/kereses
+
+### Raktárérték
+GET {{url}}/termekek/osszertek
+
+### Kategóriánkénti darabszám
+GET {{url}}/kategoriak
+
+### Eladás: 5 db számológép
+PATCH {{url}}/termekek/7/keszlet
+Content-Type: application/json
+
+{
+  "valtozas": -5
+}
+
+### Túl sok eladás -> 400
+PATCH {{url}}/termekek/7/keszlet
+Content-Type: application/json
+
+{
+  "valtozas": -50
+}
+
+### Beérkezés: +20 db ceruza
+PATCH {{url}}/termekek/3/keszlet
+Content-Type: application/json
+
+{
+  "valtozas": 20
+}

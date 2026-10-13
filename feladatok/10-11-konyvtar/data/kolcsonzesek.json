@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "konyvId": 2,
+    "olvasoId": 1,
+    "datum": "2026-09-01",
+    "visszahozva": true
+  },
+  {
+    "id": 2,
+    "konyvId": 3,
+    "olvasoId": 1,
+    "datum": "2026-09-15",
+    "visszahozva": false
+  },
+  {
+    "id": 3,
+    "konyvId": 5,
+    "olvasoId": 2,
+    "datum": "2026-09-20",
+    "visszahozva": false
+  }
+]

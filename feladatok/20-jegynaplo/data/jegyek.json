@@ -1,0 +1,16 @@
+[
+  { "id": 1, "diakId": 1, "tantargy": "Matematika", "jegy": 5, "suly": 1, "datum": "2026-09-10" },
+  { "id": 2, "diakId": 1, "tantargy": "Matematika", "jegy": 4, "suly": 2, "datum": "2026-09-24" },
+  { "id": 3, "diakId": 1, "tantargy": "Informatika", "jegy": 5, "suly": 1, "datum": "2026-09-15" },
+  { "id": 4, "diakId": 1, "tantargy": "Történelem", "jegy": 4, "suly": 1, "datum": "2026-09-18" },
+  { "id": 5, "diakId": 2, "tantargy": "Matematika", "jegy": 2, "suly": 1, "datum": "2026-09-10" },
+  { "id": 6, "diakId": 2, "tantargy": "Matematika", "jegy": 3, "suly": 2, "datum": "2026-09-24" },
+  { "id": 7, "diakId": 2, "tantargy": "Informatika", "jegy": 4, "suly": 1, "datum": "2026-09-15" },
+  { "id": 8, "diakId": 2, "tantargy": "Informatika", "jegy": 5, "suly": 1, "datum": "2026-09-29" },
+  { "id": 9, "diakId": 3, "tantargy": "Matematika", "jegy": 5, "suly": 2, "datum": "2026-09-24" },
+  { "id": 10, "diakId": 3, "tantargy": "Történelem", "jegy": 5, "suly": 1, "datum": "2026-09-18" },
+  { "id": 11, "diakId": 3, "tantargy": "Informatika", "jegy": 4, "suly": 1, "datum": "2026-09-15" },
+  { "id": 12, "diakId": 4, "tantargy": "Matematika", "jegy": 1, "suly": 1, "datum": "2026-09-11" },
+  { "id": 13, "diakId": 4, "tantargy": "Matematika", "jegy": 3, "suly": 2, "datum": "2026-09-25" },
+  { "id": 14, "diakId": 4, "tantargy": "Történelem", "jegy": 3, "suly": 1, "datum": "2026-09-19" }
+]

@@ -1,0 +1,107 @@
+### =====================================================
+### 19. feladat - tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes recept (rövid lista)
+GET {{url}}/receptek
+
+### Szűrés kategóriára
+GET {{url}}/receptek?kategoria=reggeli
+
+### Legfeljebb 30 perces receptek
+GET {{url}}/receptek?maxIdo=30
+
+### Liszt van benne
+GET {{url}}/receptek?hozzavalo=liszt
+
+### Egy recept
+GET {{url}}/receptek/1
+
+### Nem létező -> 404
+GET {{url}}/receptek/99
+
+### Palacsinta 6 főre
+GET {{url}}/receptek/1/adag/6
+
+### Bevásárlólista két receptből
+GET {{url}}/bevasarlolista?receptek=1,3
+
+### Új recept -> 201
+POST {{url}}/receptek
+Content-Type: application/json
+
+{
+  "nev": "Tea",
+  "kategoria": "ital",
+  "adag": 1,
+  "idoPerc": 5,
+  "hozzavalok": [
+    { "nev": "víz", "mennyiseg": 2.5, "egyseg": "dl" },
+    { "nev": "teafilter", "mennyiseg": 1, "egyseg": "db" }
+  ]
+}
+
+### Hibás recept -> 400 (6 hiba)
+POST {{url}}/receptek
+Content-Type: application/json
+
+{
+  "nev": "",
+  "adag": 0,
+  "hozzavalok": [{ "nev": "só", "mennyiseg": -1 }]
+}
+
+### Hozzávalók nélkül -> 400
+POST {{url}}/receptek
+Content-Type: application/json
+
+{
+  "nev": "Üres",
+  "kategoria": "x",
+  "adag": 1,
+  "idoPerc": 1,
+  "hozzavalok": []
+}
+
+### Teljes csere
+PUT {{url}}/receptek/3
+Content-Type: application/json
+
+{
+  "nev": "Rántotta sonkával",
+  "kategoria": "reggeli",
+  "adag": 2,
+  "idoPerc": 12,
+  "hozzavalok": [
+    { "nev": "tojás", "mennyiseg": 4, "egyseg": "db" },
+    { "nev": "sonka", "mennyiseg": 50, "egyseg": "g" }
+  ]
+}
+
+### Új hozzávaló -> 201
+POST {{url}}/receptek/1/hozzavalok
+Content-Type: application/json
+
+{
+  "nev": "vanília",
+  "mennyiseg": 1,
+  "egyseg": "tk"
+}
+
+### Már meglévő hozzávaló -> 409
+POST {{url}}/receptek/1/hozzavalok
+Content-Type: application/json
+
+{
+  "nev": "liszt",
+  "mennyiseg": 1,
+  "egyseg": "g"
+}
+
+### Hozzávaló törlése
+DELETE {{url}}/receptek/1/hozzavalok/cukor
+
+### Recept törlése -> 204
+DELETE {{url}}/receptek/5

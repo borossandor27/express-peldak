@@ -1,0 +1,153 @@
+### =====================================================
+### 10-11. feladat - tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+
+### Kezdőlap
+GET {{url}}/
+
+########## 10. feladat - könyvek ##########
+
+### Összes könyv
+GET {{url}}/konyvek
+
+### Keresés szerzőre (részleges)
+GET {{url}}/konyvek?szerzo=fekete
+
+### Egy könyv
+GET {{url}}/konyvek/2
+
+### Nem létező -> 404
+GET {{url}}/konyvek/99
+
+### Új könyv -> 201
+POST {{url}}/konyvek
+Content-Type: application/json
+
+{
+  "cim": "Az ember tragédiája",
+  "szerzo": "Madách Imre",
+  "ev": 1861
+}
+
+### Jövőbeli év -> 400
+POST {{url}}/konyvek
+Content-Type: application/json
+
+{
+  "cim": "Jövő",
+  "szerzo": "X",
+  "ev": 3000
+}
+
+### Módosítás
+PUT {{url}}/konyvek/1
+Content-Type: application/json
+
+{
+  "cim": "A Pál utcai fiúk",
+  "szerzo": "Molnár Ferenc",
+  "ev": 1907
+}
+
+### Törlés -> 204
+DELETE {{url}}/konyvek/6
+
+########## 10. feladat - olvasók ##########
+
+### Összes olvasó
+GET {{url}}/olvasok
+
+### Új olvasó -> 201
+POST {{url}}/olvasok
+Content-Type: application/json
+
+{
+  "nev": "Tóth Bence",
+  "email": "toth.bence@diak.hu"
+}
+
+### Foglalt e-mail -> 409
+POST {{url}}/olvasok
+Content-Type: application/json
+
+{
+  "nev": "Dupla",
+  "email": "kiss.anna@diak.hu"
+}
+
+### Hibás e-mail -> 400
+POST {{url}}/olvasok
+Content-Type: application/json
+
+{
+  "nev": "Rossz",
+  "email": "nincs-kukac"
+}
+
+### E-mail módosítása
+PATCH {{url}}/olvasok/2
+Content-Type: application/json
+
+{
+  "email": "peter.nagy@diak.hu"
+}
+
+### Olvasó törlése
+DELETE {{url}}/olvasok/3
+
+########## 11. feladat - kölcsönzések ##########
+
+### Elérhető könyvek
+GET {{url}}/konyvek/elerheto
+
+### Összes kölcsönzés (címmel, névvel)
+GET {{url}}/kolcsonzesek
+
+### Csak az aktív kölcsönzések
+GET {{url}}/kolcsonzesek?aktiv=true
+
+### Új kölcsönzés -> 201
+POST {{url}}/kolcsonzesek
+Content-Type: application/json
+
+{
+  "konyvId": 1,
+  "olvasoId": 2
+}
+
+### Már kikölcsönzött könyv -> 409
+POST {{url}}/kolcsonzesek
+Content-Type: application/json
+
+{
+  "konyvId": 1,
+  "olvasoId": 1
+}
+
+### Nem létező könyv -> 404
+POST {{url}}/kolcsonzesek
+Content-Type: application/json
+
+{
+  "konyvId": 99,
+  "olvasoId": 1
+}
+
+### Hiányzó adat -> 400
+POST {{url}}/kolcsonzesek
+Content-Type: application/json
+
+{
+  "konyvId": 1
+}
+
+### Visszahozás -> 200 (másodszorra 409)
+PATCH {{url}}/kolcsonzesek/2/visszahoz
+
+### Egy olvasó kölcsönzései
+GET {{url}}/olvasok/1/kolcsonzesek
+
+### Szorgalmi: kikölcsönzött könyv törlése -> 409
+DELETE {{url}}/konyvek/5

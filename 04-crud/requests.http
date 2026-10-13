@@ -1,0 +1,56 @@
+### =====================================================
+### 04 - CRUD tesztkérések
+### VS Code "REST Client" bővítménnyel: kattints a "Send Request" feliratra
+### =====================================================
+
+@url = http://localhost:3000
+
+### READ - összes könyv
+GET {{url}}/konyvek
+
+### READ - egy könyv
+GET {{url}}/konyvek/2
+
+### READ - nem létező könyv (404)
+GET {{url}}/konyvek/999
+
+### CREATE - új könyv
+POST {{url}}/konyvek
+Content-Type: application/json
+
+{
+  "cim": "Tüskevár",
+  "szerzo": "Fekete István",
+  "ev": 1957
+}
+
+### CREATE - hibás adat (400)
+POST {{url}}/konyvek
+Content-Type: application/json
+
+{
+  "cim": "",
+  "ev": "tavaly"
+}
+
+### UPDATE - teljes csere (PUT)
+PUT {{url}}/konyvek/1
+Content-Type: application/json
+
+{
+  "cim": "A Pál utcai fiúk (új kiadás)",
+  "szerzo": "Molnár Ferenc",
+  "ev": 1907,
+  "kiolcsonozve": true
+}
+
+### UPDATE - részleges módosítás (PATCH)
+PATCH {{url}}/konyvek/2
+Content-Type: application/json
+
+{
+  "kiolcsonozve": false
+}
+
+### DELETE - törlés
+DELETE {{url}}/konyvek/3

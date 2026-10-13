@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "cim": "A Pál utcai fiúk",
+    "szerzo": "Molnár Ferenc",
+    "ev": 1906
+  },
+  {
+    "id": 2,
+    "cim": "Egri csillagok",
+    "szerzo": "Gárdonyi Géza",
+    "ev": 1899
+  },
+  {
+    "id": 3,
+    "cim": "Tüskevár",
+    "szerzo": "Fekete István",
+    "ev": 1957
+  },
+  {
+    "id": 4,
+    "cim": "Vuk",
+    "szerzo": "Fekete István",
+    "ev": 1965
+  },
+  {
+    "id": 5,
+    "cim": "Abigél",
+    "szerzo": "Szabó Magda",
+    "ev": 1970
+  },
+  {
+    "id": 6,
+    "cim": "A kőszívű ember fiai",
+    "szerzo": "Jókai Mór",
+    "ev": 1869
+  }
+]

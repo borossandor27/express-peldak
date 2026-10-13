@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nev": "Matematika", "oraszam": 4, "tanarId": 1 },
+  { "id": 2, "nev": "Informatika", "oraszam": 3, "tanarId": 2 },
+  { "id": 3, "nev": "Fizika", "oraszam": 2, "tanarId": 1 },
+  { "id": 4, "nev": "Webprogramozás", "oraszam": 5, "tanarId": 2 }
+]

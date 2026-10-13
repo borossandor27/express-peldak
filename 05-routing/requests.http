@@ -1,0 +1,90 @@
+### =====================================================
+### 05 - Routing tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+
+### Kezdőlap
+GET {{url}}/
+
+########## DIÁKOK ##########
+
+### Összes diák
+GET {{url}}/diakok
+
+### Szűrés osztályra
+GET {{url}}/diakok?osztaly=10.A
+
+### Egy diák
+GET {{url}}/diakok/1
+
+### Új diák
+POST {{url}}/diakok
+Content-Type: application/json
+
+{
+  "nev": "Fehér Bálint",
+  "osztaly": "11.B"
+}
+
+### Diák módosítása (PUT)
+PUT {{url}}/diakok/2
+Content-Type: application/json
+
+{
+  "nev": "Nagy Péter Pál",
+  "osztaly": "10.B"
+}
+
+### Diák részleges módosítása (PATCH)
+PATCH {{url}}/diakok/3
+Content-Type: application/json
+
+{
+  "osztaly": "12.A"
+}
+
+### Diák törlése
+DELETE {{url}}/diakok/1
+
+########## TANÁROK ##########
+
+### Összes tanár
+GET {{url}}/tanarok
+
+### Egy tanár
+GET {{url}}/tanarok/1
+
+### Tanár tantárgyai (két JSON összekapcsolása)
+GET {{url}}/tanarok/2/tantargyak
+
+### Új tanár
+POST {{url}}/tanarok
+Content-Type: application/json
+
+{
+  "nev": "Balogh Réka",
+  "email": "balogh.reka@iskola.hu"
+}
+
+### Tanár e-mail módosítása
+PATCH {{url}}/tanarok/1
+Content-Type: application/json
+
+{
+  "email": "judit.kovacs@iskola.hu"
+}
+
+### Tanár törlése
+DELETE {{url}}/tanarok/2
+
+########## TANTÁRGYAK ##########
+
+### Összes tantárgy
+GET {{url}}/tantargyak
+
+### Legalább 3 órás tantárgyak
+GET {{url}}/tantargyak?min=3
+
+### Egy tantárgy a tanár nevével
+GET {{url}}/tantargyak/2

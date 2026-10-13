@@ -1,0 +1,74 @@
+### =====================================================
+### 12. feladat - tesztkérések (VS Code REST Client)
+### =====================================================
+
+@url = http://localhost:3000
+
+### Összes teendő
+GET {{url}}/teendok
+
+### Nem kész teendők határidő szerint
+GET {{url}}/teendok?kesz=false&rendez=hatarido
+
+### Magas prioritású teendők
+GET {{url}}/teendok?prioritas=magas
+
+### Lejárt határidejű, nem kész teendők
+GET {{url}}/teendok/lejart
+
+### Statisztika
+GET {{url}}/teendok/statisztika
+
+### Egy teendő
+GET {{url}}/teendok/2
+
+### Nem létező -> 404
+GET {{url}}/teendok/99
+
+### Új teendő -> 201
+POST {{url}}/teendok
+Content-Type: application/json
+
+{
+  "cim": "Fizika dolgozat",
+  "prioritas": "magas",
+  "hatarido": "2026-10-02"
+}
+
+### Új teendő csak címmel -> 201 (prioritas: közepes, hatarido: null)
+POST {{url}}/teendok
+Content-Type: application/json
+
+{
+  "cim": "Szobát kitakarítani"
+}
+
+### Hibás adatok -> 400 (3 hiba)
+POST {{url}}/teendok
+Content-Type: application/json
+
+{
+  "cim": "",
+  "prioritas": "sürgős",
+  "hatarido": "10.02"
+}
+
+### Teljes módosítás
+PUT {{url}}/teendok/2
+Content-Type: application/json
+
+{
+  "cim": "Könyvtár",
+  "prioritas": "magas",
+  "hatarido": "2026-10-01",
+  "kesz": false
+}
+
+### Kész / nincs kész átváltása
+PATCH {{url}}/teendok/1/kesz
+
+### Az összes kész teendő törlése
+DELETE {{url}}/teendok/keszek
+
+### Egy teendő törlése -> 204
+DELETE {{url}}/teendok/2

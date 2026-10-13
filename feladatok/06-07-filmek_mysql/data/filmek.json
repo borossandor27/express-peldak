@@ -1,0 +1,14 @@
+[
+  { "id": 1, "cim": "A tanú", "rendezo": "Bacsó Péter", "ev": 1969, "mufaj": "vígjáték", "ertekeles": 8.6, "hossz": 110 },
+  { "id": 2, "cim": "Kontroll", "rendezo": "Antal Nimród", "ev": 2003, "mufaj": "thriller", "ertekeles": 7.6, "hossz": 105 },
+  { "id": 3, "cim": "Saul fia", "rendezo": "Nemes Jeles László", "ev": 2015, "mufaj": "dráma", "ertekeles": 7.4, "hossz": 107 },
+  { "id": 4, "cim": "Mindenki", "rendezo": "Deák Kristóf", "ev": 2016, "mufaj": "dráma", "ertekeles": 7.6, "hossz": 25 },
+  { "id": 5, "cim": "Macskafogó", "rendezo": "Ternovszky Béla", "ev": 1986, "mufaj": "animáció", "ertekeles": 8.4, "hossz": 96 },
+  { "id": 6, "cim": "Csinibaba", "rendezo": "Tímár Péter", "ev": 1997, "mufaj": "vígjáték", "ertekeles": 7.9, "hossz": 94 },
+  { "id": 7, "cim": "Eredet", "rendezo": "Christopher Nolan", "ev": 2010, "mufaj": "sci-fi", "ertekeles": 8.8, "hossz": 148 },
+  { "id": 8, "cim": "Mátrix", "rendezo": "Wachowski testvérek", "ev": 1999, "mufaj": "sci-fi", "ertekeles": 8.7, "hossz": 136 },
+  { "id": 9, "cim": "Toy Story", "rendezo": "John Lasseter", "ev": 1995, "mufaj": "animáció", "ertekeles": 8.3, "hossz": 81 },
+  { "id": 10, "cim": "Csillagok között", "rendezo": "Christopher Nolan", "ev": 2014, "mufaj": "sci-fi", "ertekeles": 8.7, "hossz": 169 },
+  { "id": 11, "cim": "A Keresztapa", "rendezo": "Francis Ford Coppola", "ev": 1972, "mufaj": "dráma", "ertekeles": 9.2, "hossz": 175 },
+  { "id": 12, "cim": "Hyppolit, a lakáj", "rendezo": "Székely István", "ev": 1931, "mufaj": "vígjáték", "ertekeles": 7.9, "hossz": 76 }
+]
