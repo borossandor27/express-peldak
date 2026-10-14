@@ -1,0 +1,117 @@
+### =====================================================
+### 20. feladat MySQL-lel - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/jegynaplo.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Diákok egy osztályból
+GET {{url}}/diakok?osztaly=10.A
+
+### Egy diák
+GET {{url}}/diakok/1
+
+### Bizonyítvány
+GET {{url}}/diakok/1/bizonyitvany
+
+### Nem létező diák bizonyítványa -> 404
+GET {{url}}/diakok/9/bizonyitvany
+
+### Rangsor (mindenki)
+GET {{url}}/diakok/rangsor
+
+### Rangsor egy osztályban
+GET {{url}}/diakok/rangsor?osztaly=10.A
+
+### Egy diák jegyei
+GET {{url}}/jegyek?diakId=2
+
+### Egy tantárgy jegyei
+GET {{url}}/jegyek?tantargy=Történelem
+
+### Új jegy (témazáró) -> 201
+POST {{url}}/jegyek
+Content-Type: application/json
+
+{
+  "diakId": 2,
+  "tantargy": "Matematika",
+  "jegy": 5,
+  "suly": 2
+}
+
+### Hibás jegy -> 400 (4 hiba)
+POST {{url}}/jegyek
+Content-Type: application/json
+
+{
+  "diakId": 2,
+  "tantargy": "",
+  "jegy": 6,
+  "suly": 3,
+  "datum": "tegnap"
+}
+
+### Nem létező diák -> 404
+POST {{url}}/jegyek
+Content-Type: application/json
+
+{
+  "diakId": 99,
+  "tantargy": "Fizika",
+  "jegy": 3
+}
+
+### Jegy javítása
+PATCH {{url}}/jegyek/12
+Content-Type: application/json
+
+{
+  "jegy": 2
+}
+
+### Jegy törlése
+DELETE {{url}}/jegyek/14
+
+### Új diák
+POST {{url}}/diakok
+Content-Type: application/json
+
+{
+  "nev": "Fehér Bálint",
+  "osztaly": "10.B"
+}
+
+### Hibás osztály -> 400
+POST {{url}}/diakok
+Content-Type: application/json
+
+{
+  "nev": "X",
+  "osztaly": "tizedik"
+}
+
+### Diák törlése (a jegyeivel együtt)
+DELETE {{url}}/diakok/4
+
+### Ellenőrzés: a törölt diák jegyei is eltűntek
+GET {{url}}/jegyek?diakId=4
+
+########## Csak a MySQL-es változatban ##########
+
+### A dátum pontosan úgy jön vissza, ahogy az adatbázisban van ("2026-09-10", nem "2026-09-09T22:00:00.000Z")
+GET {{url}}/jegyek?diakId=1
+
+### Nem létező nap -> 400 (a DATE oszlop nem fogadná el)
+POST {{url}}/jegyek
+Content-Type: application/json
+
+{
+  "diakId": 1,
+  "tantargy": "Fizika",
+  "jegy": 4,
+  "datum": "2026-02-30"
+}
+
+### Új diák bizonyítványa (még nincs jegye) -> üres tantárgylista, osszAtlag: null
+GET {{url}}/diakok/5/bizonyitvany

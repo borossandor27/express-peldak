@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "filmId": 1,
+    "datum": "2026-10-10",
+    "idopont": "15:00",
+    "terem": "Kis terem",
+    "sorok": 4,
+    "szekek": 6
+  },
+  {
+    "id": 2,
+    "filmId": 2,
+    "datum": "2026-10-10",
+    "idopont": "18:00",
+    "terem": "Nagy terem",
+    "sorok": 6,
+    "szekek": 10
+  },
+  {
+    "id": 3,
+    "filmId": 3,
+    "datum": "2026-10-11",
+    "idopont": "20:30",
+    "terem": "Kis terem",
+    "sorok": 4,
+    "szekek": 6
+  },
+  {
+    "id": 4,
+    "filmId": 1,
+    "datum": "2026-10-11",
+    "idopont": "10:00",
+    "terem": "Nagy terem",
+    "sorok": 6,
+    "szekek": 10
+  }
+]

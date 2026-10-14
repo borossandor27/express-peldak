@@ -2,7 +2,8 @@
 
 **Indítás:** `npm run f10-mysql` · **Adatbázis:** `data/konyvtar.sql` (adatbázis: `konyvtar`) · **Teszteléshez:** `requests.http`
 **Feladat:** ugyanaz, mint a [`10-11-konyvtar`](../10-11-konyvtar/README.md) mappában ([FELADATOK.md](../FELADATOK.md)), de az adatok **MySQL adatbázisban** vannak.
-**Előkészítés** (XAMPP, importálás, `mysql2`, kapcsolat): a fő [README.md](../../README.md) „Adatbázisos (MySQL) változatok” része.
+**Előkészítés** (XAMPP, importálás, `.env`, `utils/db.js`): a fő [README.md](../../README.md) „Adatbázisos (MySQL) változatok” része.
+**Beállítások:** másold le a `.env.example` fájlt `.env` néven. A kapcsolat adatai (felhasználó, jelszó, adatbázis) a `.env`-ben legyenek, a `utils/db.js` a `process.env`-ből vegye őket (`dotenv`) – a kódba ne írd bele.
 
 ## Mit mutat be a feladat?
 

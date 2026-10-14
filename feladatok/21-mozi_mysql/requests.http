@@ -1,0 +1,100 @@
+### =====================================================
+### 21. feladat MySQL-lel - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/mozi.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Filmek
+GET {{url}}/filmek
+
+### Egy film a vetítéseivel
+GET {{url}}/filmek/1
+
+### Vetítések (rendezve, szabad helyekkel)
+GET {{url}}/vetitesek
+
+### Egy nap vetítései
+GET {{url}}/vetitesek?datum=2026-10-11
+
+### Egy vetítés
+GET {{url}}/vetitesek/1
+
+### Ülésrend
+GET {{url}}/vetitesek/1/ulesrend
+
+### Új foglalás -> 201
+POST {{url}}/foglalasok
+Content-Type: application/json
+
+{
+  "vetitesId": 1,
+  "nev": "Tóth Bence",
+  "helyek": [
+    { "sor": 1, "szek": 1 },
+    { "sor": 1, "szek": 2 }
+  ]
+}
+
+### Már foglalt hely -> 409
+POST {{url}}/foglalasok
+Content-Type: application/json
+
+{
+  "vetitesId": 1,
+  "nev": "Varga Máté",
+  "helyek": [
+    { "sor": 2, "szek": 2 },
+    { "sor": 2, "szek": 3 }
+  ]
+}
+
+### Nem létező hely -> 400
+POST {{url}}/foglalasok
+Content-Type: application/json
+
+{
+  "vetitesId": 1,
+  "nev": "X",
+  "helyek": [{ "sor": 5, "szek": 1 }]
+}
+
+### Kétszer ugyanaz a hely -> 400
+POST {{url}}/foglalasok
+Content-Type: application/json
+
+{
+  "vetitesId": 1,
+  "nev": "X",
+  "helyek": [
+    { "sor": 3, "szek": 1 },
+    { "sor": 3, "szek": 1 }
+  ]
+}
+
+### Nem létező vetítés -> 404
+POST {{url}}/foglalasok
+Content-Type: application/json
+
+{
+  "vetitesId": 9,
+  "nev": "X",
+  "helyek": [{ "sor": 1, "szek": 1 }]
+}
+
+### Foglalások név szerint
+GET {{url}}/foglalasok?nev=kiss
+
+### Lemondás -> 204
+DELETE {{url}}/foglalasok/2
+
+########## Csak a MySQL-es változatban ##########
+
+### Az időpont "15:00" alakú, nem "15:00:00" (TIME_FORMAT)
+GET {{url}}/vetitesek/1
+
+### A lemondott foglalás helyei felszabadultak (ON DELETE CASCADE)
+GET {{url}}/vetitesek/1/ulesrend
+
+### Nem szám filmId -> 400
+GET {{url}}/vetitesek?filmId=egy

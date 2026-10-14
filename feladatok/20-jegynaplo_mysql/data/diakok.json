@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nev": "Kiss Anna",
+    "osztaly": "10.A"
+  },
+  {
+    "id": 2,
+    "nev": "Nagy Péter",
+    "osztaly": "10.A"
+  },
+  {
+    "id": 3,
+    "nev": "Szabó Lili",
+    "osztaly": "10.A"
+  },
+  {
+    "id": 4,
+    "nev": "Tóth Bence",
+    "osztaly": "10.B"
+  }
+]

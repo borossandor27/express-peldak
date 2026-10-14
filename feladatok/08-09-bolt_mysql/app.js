@@ -1,16 +1,17 @@
 // =====================================================
 // 08. és 09. feladat - Papírbolt CRUD
-// Indítás: npm run f08-mysql   (előtte: az SQL importálása, npm install mysql2)
+// Indítás: npm run f08-mysql   (előtte: SQL importálása, .env.example -> .env, utils/db.js)
 // Teszteléshez: requests.http (VS Code REST Client)
 // A feladat leírása: feladatok/FELADATOK.md
 // =====================================================
 
+import 'dotenv/config'; // a .env beolvasása - ez legyen az első import!
 import express from 'express';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT ?? 3000); // a .env-ből
 
 // TODO: JSON törzs feldolgozása (middleware)
 

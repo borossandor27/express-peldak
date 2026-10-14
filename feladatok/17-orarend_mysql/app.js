@@ -1,14 +1,15 @@
 // =====================================================
 // 17. feladat - Órarend (csak GET, JSON válaszok)
-// Indítás: npm run f17-mysql   (előtte: az SQL importálása, npm install mysql2)
+// Indítás: npm run f17-mysql   (előtte: SQL importálása, .env.example -> .env, utils/db.js)
 // A feladat leírása: feladatok/FELADATOK-2.md
 // =====================================================
 
+import 'dotenv/config'; // a .env beolvasása - ez legyen az első import!
 import express from 'express';
 import orarend from './data/orarend.json' with { type: 'json' };
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT ?? 3000); // a .env-ből
 
 const NAPOK = ['hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek'];
 const CSENGETES = [

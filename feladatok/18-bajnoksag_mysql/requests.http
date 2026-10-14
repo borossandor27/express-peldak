@@ -1,0 +1,100 @@
+### =====================================================
+### 18. feladat MySQL-lel - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/bajnoksag.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+########## Ugyanaz, mint a JSON-os változatban ##########
+
+### Összes meccs
+GET {{url}}/meccsek
+
+### Egy forduló
+GET {{url}}/meccsek?fordulo=1
+
+### Egy csapat meccsei (hazai és vendég oldalon is)
+GET {{url}}/meccsek?csapat=12.A
+
+### Forduló + csapat együtt
+GET {{url}}/meccsek?fordulo=3&csapat=9.A
+
+### Hibás forduló -> 400
+GET {{url}}/meccsek?fordulo=elso
+
+### Eredmények (text/plain)
+GET {{url}}/eredmenyek
+
+### Tabella (10.A és 12.A: 11 pont, a gólkülönbség dönt)
+GET {{url}}/tabella
+
+### Egy csapat (helyezes: 1)
+GET {{url}}/csapat/10.A
+
+### Nem létező csapat -> 404
+GET {{url}}/csapat/13.A
+
+### Statisztika
+GET {{url}}/statisztika
+
+### Egymás elleni meccsek
+GET {{url}}/egymas-ellen?a=9.A&b=10.A
+
+### Hiányzó paraméter -> 400
+GET {{url}}/egymas-ellen?a=9.A
+
+########## Bővítés: új meccs, törlés ##########
+
+### Új meccs -> 201 (a 7. fordulóban még senki nem játszott)
+POST {{url}}/meccsek
+Content-Type: application/json
+
+{
+  "fordulo": 7,
+  "hazai": "9.A",
+  "vendeg": "12.A",
+  "hazaiGol": 2,
+  "vendegGol": 0
+}
+
+### Ugyanabban a fordulóban újra a 9.A -> 409
+POST {{url}}/meccsek
+Content-Type: application/json
+
+{
+  "fordulo": 7,
+  "hazai": "11.A",
+  "vendeg": "9.A",
+  "hazaiGol": 1,
+  "vendegGol": 1
+}
+
+### Nem létező csapat -> 404
+POST {{url}}/meccsek
+Content-Type: application/json
+
+{
+  "fordulo": 7,
+  "hazai": "10.A",
+  "vendeg": "13.A",
+  "hazaiGol": 1,
+  "vendegGol": 1
+}
+
+### Hibás adatok -> 400 (2 hiba)
+POST {{url}}/meccsek
+Content-Type: application/json
+
+{
+  "fordulo": 0,
+  "hazai": "10.A",
+  "vendeg": "10.A",
+  "hazaiGol": 1,
+  "vendegGol": 1
+}
+
+### A tabella az új meccs után megváltozott (a 9.A 10 pontra jön fel)
+GET {{url}}/tabella
+
+### Meccs törlése -> 204 (másodszorra 404)
+DELETE {{url}}/meccsek/13

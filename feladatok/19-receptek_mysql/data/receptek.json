@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "nev": "Palacsinta",
+    "kategoria": "desszert",
+    "adag": 4,
+    "idoPerc": 30,
+    "hozzavalok": [
+      { "nev": "liszt", "mennyiseg": 200, "egyseg": "g" },
+      { "nev": "tej", "mennyiseg": 5, "egyseg": "dl" },
+      { "nev": "tojás", "mennyiseg": 2, "egyseg": "db" },
+      { "nev": "cukor", "mennyiseg": 1, "egyseg": "ek" },
+      { "nev": "só", "mennyiseg": 1, "egyseg": "csipet" }
+    ]
+  },
+  {
+    "id": 2,
+    "nev": "Gulyásleves",
+    "kategoria": "leves",
+    "adag": 6,
+    "idoPerc": 120,
+    "hozzavalok": [
+      { "nev": "marhahús", "mennyiseg": 600, "egyseg": "g" },
+      { "nev": "burgonya", "mennyiseg": 500, "egyseg": "g" },
+      { "nev": "vöröshagyma", "mennyiseg": 2, "egyseg": "db" },
+      { "nev": "sárgarépa", "mennyiseg": 2, "egyseg": "db" },
+      { "nev": "pirospaprika", "mennyiseg": 2, "egyseg": "ek" },
+      { "nev": "só", "mennyiseg": 1, "egyseg": "tk" }
+    ]
+  },
+  {
+    "id": 3,
+    "nev": "Rántotta",
+    "kategoria": "reggeli",
+    "adag": 2,
+    "idoPerc": 10,
+    "hozzavalok": [
+      { "nev": "tojás", "mennyiseg": 4, "egyseg": "db" },
+      { "nev": "vaj", "mennyiseg": 20, "egyseg": "g" },
+      { "nev": "só", "mennyiseg": 1, "egyseg": "csipet" }
+    ]
+  },
+  {
+    "id": 4,
+    "nev": "Bundás kenyér",
+    "kategoria": "reggeli",
+    "adag": 2,
+    "idoPerc": 15,
+    "hozzavalok": [
+      { "nev": "kenyér", "mennyiseg": 4, "egyseg": "szelet" },
+      { "nev": "tojás", "mennyiseg": 2, "egyseg": "db" },
+      { "nev": "tej", "mennyiseg": 1, "egyseg": "dl" },
+      { "nev": "olaj", "mennyiseg": 3, "egyseg": "ek" },
+      { "nev": "só", "mennyiseg": 1, "egyseg": "csipet" }
+    ]
+  },
+  {
+    "id": 5,
+    "nev": "Piskóta",
+    "kategoria": "desszert",
+    "adag": 8,
+    "idoPerc": 45,
+    "hozzavalok": [
+      { "nev": "tojás", "mennyiseg": 6, "egyseg": "db" },
+      { "nev": "cukor", "mennyiseg": 120, "egyseg": "g" },
+      { "nev": "liszt", "mennyiseg": 120, "egyseg": "g" }
+    ]
+  }
+]

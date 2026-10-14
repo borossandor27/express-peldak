@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "cim": "Macskafogó",
+    "hossz": 96,
+    "korhatar": 6
+  },
+  {
+    "id": 2,
+    "cim": "Eredet",
+    "hossz": 148,
+    "korhatar": 12
+  },
+  {
+    "id": 3,
+    "cim": "Kontroll",
+    "hossz": 105,
+    "korhatar": 16
+  }
+]

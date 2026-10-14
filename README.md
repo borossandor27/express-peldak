@@ -8,6 +8,7 @@
 | 04 | `04-crud` | Teljes CRUD (GET, POST, PUT, PATCH, DELETE), `express.json()`, státuszkódok | `npm run 04` |
 | 05 | `05-routing` | Több JSON erőforrás, `express.Router`, middleware, hibakezelés | `npm run 05` |
 | 06 | `06-szamiras` | Saját modul: számok betűvel (magyar helyesírás) és római számmal, `try...catch`, `node:test` | `npm run 06`, teszt: `npm run 06-teszt` |
+| 07 | [`07-mysql`](07-mysql/README.md) | CRUD **MySQL** adatbázissal, beállítások `.env` fájlban (`dotenv`), `insertId`, `affectedRows`, dinamikus `WHERE` / `SET` | `npm run 07` |
 
 Minden szerver a **http://localhost:3000** címen fut (egyszerre csak egy indítható). Leállítás: `Ctrl + C`.
 A `--watch` kapcsoló miatt mentéskor a szerver magától újraindul.
@@ -84,12 +85,12 @@ A 04-es és 05-ös példa **fájlba menti** a módosításokat (`data/*.json`). 
 
 ## Gyakorló feladatok
 
-28 feladat a `feladatok/` mappában, ebből 5 **MySQL adatbázissal** is elkészíthető:
+28 feladat a `feladatok/` mappában, ebből 9 **MySQL adatbázissal** is elkészíthető:
 
 - **1. rész (1–12.):** [feladatok/FELADATOK.md](feladatok/FELADATOK.md), indítás: `npm run f01` … `npm run f12`
 - **2. rész (13–22.):** [feladatok/FELADATOK-2.md](feladatok/FELADATOK-2.md), indítás: `npm run f13` … `npm run f22`
 - **3. rész (23–28.), hibapótló feladatok:** [feladatok/FELADATOK-3.md](feladatok/FELADATOK-3.md), indítás: `npm run f23` … `npm run f28`
-- **MySQL-es változatok (6–7., 8–9., 10–11., 12., 17.):** ugyanazok a feladatok adatbázissal, indítás: `npm run f06-mysql`, `f08-mysql`, `f10-mysql`, `f12-mysql`, `f17-mysql` (lásd lent)
+- **MySQL-es változatok (6–7., 8–9., 10–11., 12., 17–21.):** ugyanazok a feladatok adatbázissal, indítás: `npm run f06-mysql`, `f08-mysql`, `f10-mysql`, `f12-mysql`, `f17-mysql` … `f21-mysql` (lásd lent)
 
 **Minden feladatmappában van egy `README.md`**: mit mutat be a feladat, és mire kell figyelni a megoldás során. Érdemes a feladat előtt elolvasni.
 
@@ -115,9 +116,13 @@ A 04-es és 05-ös példa **fájlba menti** a módosításokat (`data/*.json`). 
 | 17 | [17-orarend](feladatok/17-orarend/README.md) | JSON szűrés, csoportosítás | 03 | `npm run f17` | |
 | 17 | [17-orarend_mysql](feladatok/17-orarend_mysql/README.md) | ugyanez MySQL-lel: nézet (VIEW), `GROUP BY` | 03 | `npm run f17-mysql` | |
 | 18 | [18-bajnoksag](feladatok/18-bajnoksag/README.md) | tabella számítása, összetett rendezés | 03 | `npm run f18` | |
+| 18 | [18-bajnoksag_mysql](feladatok/18-bajnoksag_mysql/README.md) | ugyanez MySQL-lel: `UNION ALL`, `GROUP BY`, két `JOIN` egy táblára, `CHECK` + új meccs | 07 | `npm run f18-mysql` | |
 | 19 | [19-receptek](feladatok/19-receptek/README.md) | CRUD beágyazott tömbbel | 04 | `npm run f19` | |
+| 19 | [19-receptek_mysql](feladatok/19-receptek_mysql/README.md) | ugyanez MySQL-lel: 1:N tábla, tranzakció, `ON DELETE CASCADE`, `UNIQUE` → 409 | 07 | `npm run f19-mysql` | |
 | 20 | [20-jegynaplo](feladatok/20-jegynaplo/README.md) | routerek, súlyozott átlag, kapcsolt törlés | 05 | `npm run f20` | |
+| 20 | [20-jegynaplo_mysql](feladatok/20-jegynaplo_mysql/README.md) | ugyanez MySQL-lel: `DATE` + `dateStrings`, `GROUP_CONCAT`, súlyozott átlag SQL-ben | 07 | `npm run f20-mysql` | |
 | 21 | [21-mozi](feladatok/21-mozi/README.md) | 3 router, összetett ellenőrzés, 409 | 05 | `npm run f21` | |
+| 21 | [21-mozi_mysql](feladatok/21-mozi_mysql/README.md) | ugyanez MySQL-lel: 5 tábla, `TIME`, allekérdezés, dupla foglalás ellen `UNIQUE` + tranzakció | 07 | `npm run f21-mysql` | |
 | 22 | [22-kviz](feladatok/22-kviz/README.md) | önálló projekt, védett végpontok (401) | 05 | `npm run f22` | |
 | 23 | [23-diakszuro](feladatok/23-diakszuro/README.md) | kombinálható szűrők, határértékek | 03 | `npm run f23` | `npm run t23` |
 | 24 | [24-homerseklet](feladatok/24-homerseklet/README.md) | a 0 csapdája, előbb a várt eredmény | 03 | `npm run f24` | `npm run t24` |
@@ -128,11 +133,13 @@ A 04-es és 05-ös példa **fájlba menti** a módosításokat (`data/*.json`). 
 
 A 23–28. feladathoz **automatikus ellenőrzés** is tartozik: `npm run t23` … `npm run t28` (a szervert nem kell elindítani hozzá). A 26. feladat validáló függvénye külön is tesztelhető: `npm run t26-fv`.
 
-A kidolgozott megoldások a `megoldasok/` mappában vannak (tanári használatra), indítás: `npm run m01` … `npm run m28`.
+A kidolgozott megoldások a `megoldasok/` mappában vannak (tanári használatra), indítás: `npm run m01` … `npm run m28`, a MySQL-es változatoké `npm run m06-mysql` … `npm run m21-mysql`.
 
 ## Adatbázisos (MySQL) változatok
 
-A `_mysql` végű mappákban **ugyanaz** a feladat van, mint a párjukban, de az adatokat MySQL (MariaDB) adatbázisból kell olvasni és oda kell írni. A cél: **az API kívülről ne változzon** – ugyanazok a végpontok, ugyanazok a válaszok és státuszkódok, csak a szerver belseje más. A `data/*.json` fájlok összehasonlításnak maradtak meg, a kiinduló `app.js` még a JSON-t olvassa.
+A `_mysql` végű mappákban **ugyanaz** a feladat van, mint a párjukban, de az adatokat MySQL (MariaDB) adatbázisból kell olvasni és oda kell írni. A cél: **az API kívülről ne változzon** – ugyanazok a végpontok, ugyanazok a válaszok és státuszkódok, csak a szerver belseje más. A `data/*.json` fájlok összehasonlításnak maradtak meg. A régebbi feladatok (06–17.) kiinduló `app.js`-e még a JSON-t olvassa, az újabbaké (18–21.) már csak a `TODO`-kat tartalmazza.
+
+**Mintapélda:** a [`07-mysql`](07-mysql/README.md) mappa – egy teljes, működő CRUD MySQL-lel és `.env` fájllal. Érdemes ezzel kezdeni.
 
 | Mappa | SQL fájl | Adatbázis | Eltérés a JSON-hoz képest |
 |---|---|---|---|
@@ -141,31 +148,61 @@ A `_mysql` végű mappákban **ugyanaz** a feladat van, mint a párjukban, de az
 | `10-11-konyvtar_mysql` | `data/konyvtar.sql` | `konyvtar` | külön `szerzok` tábla; az olvasóknak nincs `email` oszlopa; a `visszahozva` szöveg |
 | `12-teendok_mysql` | `data/teendok.sql` | `teendok` | a `kesz` szöveg (`'true'` / `'false'`) |
 | `17-orarend_mysql` | `data/orarend.sql` | `orarend` | normalizált táblák + `orarend_adatokkal` nézet |
+| `18-bajnoksag_mysql` | `data/bajnoksag.sql` | `bajnoksag` | külön `csapatok` tábla, a meccs csak id-kat tárol; **bővítés**: új meccs, törlés |
+| `19-receptek_mysql` | `data/receptek.sql` | `receptek` | a hozzávalók külön táblában (`hozzavalok`), `ON DELETE CASCADE` |
+| `20-jegynaplo_mysql` | `data/jegynaplo.sql` | `jegynaplo` | a `datum` valódi `DATE`; `ON DELETE CASCADE`, `CHECK` |
+| `21-mozi_mysql` | `data/mozi.sql` | `mozi` | 5 tábla: külön `termek` és `foglalt_helyek`; `DATE` + `TIME` |
+
+A 07. példa és a 18–21. feladat SQL fájljai **újra importálhatók**: a táblákat eldobják és újra létrehozzák, így visszaáll az eredeti állapot.
 
 ### Előkészítés
 
 1. Indítsd el a **XAMPP**-ban a **MySQL**-t.
 2. phpMyAdmin (`http://localhost/phpmyadmin`) → **Importálás** → válaszd ki a mappa `data/*.sql` fájlját. Adatbázist nem kell előre létrehozni, az SQL fájl megcsinálja (`CREATE DATABASE IF NOT EXISTS`).
-3. A projekt gyökerében telepítsd a MySQL klienst:
+3. A projekt gyökerében telepítsd a MySQL klienst és a `dotenv` csomagot (egyszer kell):
 
 ```bash
-npm install mysql2
+npm install mysql2 dotenv
 ```
 
-4. Készíts egy közös kapcsolatot a feladat mappájában, pl. `utils/db.js`:
+4. A feladat mappájában másold le a **`.env.example`** fájlt **`.env`** néven, és ha kell, írd át (pl. ha van jelszavad):
+
+```ini
+# .env – a SAJÁT géped beállításai, NEM kerül fel a Git-re
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=filmek
+```
+
+5. Készíts egy közös kapcsolatot a feladat mappájában, `utils/db.js` néven. A kapcsolat adatai **a `.env`-ből jönnek**, nem a kódból:
 
 ```js
+import 'dotenv/config'; // beolvassa a .env fájlt -> process.env
 import mysql from 'mysql2/promise';
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',        // XAMPP alapértelmezés
-  password: '',        // XAMPP alapértelmezés: üres
-  database: 'filmek',  // a feladat adatbázisa
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT ?? 3306), // a process.env értékei mind szövegek!
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD ?? '',
+  database: process.env.DB_NAME,
+  // dateStrings: true,   // ha van DATE / TIME oszlop (20., 21. feladat), lásd lent
 });
 
 export default pool;
 ```
+
+6. Az `app.js` első sora is legyen `import 'dotenv/config';`, a port pedig: `const PORT = Number(process.env.PORT ?? 3000);`
+
+### Miért `.env`?
+
+- A jelszó, a felhasználó és az adatbázis neve **gépenként más** (otthon, iskolában, szerveren). A `.env`-ben gépenként külön vannak, **a kód nem változik**.
+- A **`.env` a `.gitignore`-ban van**, így a jelszó nem kerül fel a Git-re. A **`.env.example`** felkerül: ebből látja a többi fejlesztő, mit kell beállítania (jelszó nélkül).
+- A `dotenv` a `.env` fájlt **abból a mappából** olvassa, **ahonnan a szervert indítod**. Ezért indul minden adatbázisos szkript a saját mappájából: `"f06-mysql": "cd feladatok/06-07-filmek_mysql && node --watch app.js"`.
+- A már beállított környezeti változót a `dotenv` **nem írja felül** – egy éles szerveren így a valódi környezet az erősebb.
 
 ### Használat
 
@@ -190,10 +227,14 @@ app.get('/filmek/:id', async (req, res) => {
 - **Soha ne fűzd a kérés adatait az SQL szövegébe** (`"... WHERE id = " + req.params.id`) – ez **SQL injection**. Mindig `?` helyőrző és paramétertömb.
 - **Oszlopnevet és rendezési irányt nem lehet `?`-lel átadni.** Ezeket engedélyezett listából válaszd ki (pl. `?rendez=` csak `cim`, `ev`, `ertekeles` lehet).
 - **Kombinálható szűrőknél** a feltételeket és a paramétereket egy-egy tömbbe gyűjtsd, a végén `WHERE ` + `feltetelek.join(' AND ')`.
-- **A `SUM()` és az `AVG()` eredménye szöveg** a `mysql2`-ben (pl. `"8.2583"`), mert DECIMAL típusú. Alakítsd számmá (`Number(...)`).
+- **A `NaN` nem mehet az SQL-be**: `Number('abc')` = `NaN`, és a `mysql2` szó szerint beírja (`WHERE id = NaN` → 500). A számokat előbb ellenőrizd. A `'2abc'` szöveget viszont a MySQL **2-nek** veszi – az id-t ezért érdemes reguláris kifejezéssel ellenőrizni (`/^\d+$/`).
+- **A `SUM()` és az `AVG()` eredménye szöveg** a `mysql2`-ben (pl. `"8.2583"`), mert DECIMAL típusú. A DECIMAL oszlop is szövegként jön. Alakítsd számmá (`Number(...)`).
+- **Dátum**: a `DATE` oszlopból a `mysql2` JavaScript `Date`-et csinál, ami JSON-ban UTC idő – a `2026-09-10`-ből `"2026-09-09T22:00:00.000Z"` lesz! A pool beállításai közé írd: `dateStrings: true`. A `TIME` oszlop `"15:00:00"` alakú – ha `"15:00"` kell: `TIME_FORMAT(idopont, '%H:%i')`.
 - **A validáció továbbra is a szerver feladata.** Az adatbázis hibaüzenete nem a kliensnek való, és nem minden hibát fog meg.
+- **Megszorítások hibakódjai**: `ER_DUP_ENTRY` (egyedi kulcs) → 409, `ER_ROW_IS_REFERENCED_2` (idegen kulcs törléskor) → 409, `ER_NO_REFERENCED_ROW_2` (nem létező hivatkozott sor) → inkább előbb ellenőrizd, és adj 404-et.
+- **Több, összetartozó utasításnál tranzakció** kell (`getConnection`, `beginTransaction`, `commit`, `rollback`, `release`) – lásd a 19. és a 21. feladatot.
 - A route handlerek `async`-ok. Az Express 5 az `async` handlerben keletkező hibát továbbítja a hibakezelő middleware-nek – legyen ilyen, és adjon 500-at (pl. ha nem fut a MySQL).
-- A **`mentes()` / `jsonDb.js` nem kell**: minden `INSERT`, `UPDATE`, `DELETE` azonnal tartós. Az eredeti adatokhoz úgy lehet visszatérni, hogy phpMyAdminban **eldobod** (törlöd) az adatbázist, majd újra importálod az SQL fájlt – a fájl `CREATE TABLE` utasításai a már létező táblákra hibát adnának.
+- A **`mentes()` / `jsonDb.js` nem kell**: minden `INSERT`, `UPDATE`, `DELETE` azonnal tartós. Az eredeti adatokhoz a 06–17. feladatnál úgy lehet visszatérni, hogy phpMyAdminban **eldobod** (törlöd) az adatbázist, majd újra importálod az SQL fájlt – a fájl `CREATE TABLE` utasításai a már létező táblákra hibát adnának. A 07. példa és a 18–21. feladat SQL fájlja egyszerűen újra importálható.
 
 ## Rövid feladat ötletek
 
