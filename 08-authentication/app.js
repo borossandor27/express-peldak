@@ -1,6 +1,5 @@
 // =====================================================
 // 08 - Hitelesítés (authentication): regisztráció, bejelentkezés, JWT
-// Indítás:  npm run 08
 // Előtte:   1. XAMPP: MySQL indítása
 //           2. phpMyAdmin: a data/auth_pelda.sql importálása
 //           3. a .env.example lemásolása .env néven (JWT_SECRET kitöltése!)
@@ -24,6 +23,18 @@ const app = express();
 const PORT = Number(process.env.PORT ?? 3000);
 
 app.use(express.json());
+
+// Express 5-ben a req.body undefined, ha a kérésnek nincs törzse, vagy nem JSON
+// (hiányzik a Content-Type: application/json fejléc). Ilyenkor a route-ban a
+// const { nev } = req.body sor TypeError-ral elszállna -> inkább érthető 400-at adunk.
+app.use((req, res, next) => {
+  if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body === undefined) {
+    return res.status(400).json({
+      hiba: 'Hiányzik a kérés törzse. Az adatokat JSON formában küldd, Content-Type: application/json fejléccel.',
+    });
+  }
+  next();
+});
 
 // ---------- Nyilvános végpont: bárki elérheti ----------
 app.get('/', (req, res) => {

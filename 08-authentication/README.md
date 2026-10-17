@@ -25,9 +25,11 @@ A hitelesítés arról szól, hogy meghatározzuk a felhasználó személyazonos
 2. phpMyAdmin → **Importálás** → `data/auth_pelda.sql`. Újraimportálva visszaállítja az eredeti állapotot.
 3. A projekt gyökerében (egyszer): `npm install jsonwebtoken bcryptjs`
 4. Másold le a `.env.example` fájlt **`.env`** néven, és írj a `JWT_SECRET` mögé egy hosszú véletlen szöveget:
+
    ```bash
    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
+
    Ha a `JWT_SECRET` hiányzik vagy 32 karakternél rövidebb, a szerver el sem indul.
 
 **Mintafelhasználó:** `teszt@pelda.hu` / `Jelszo123`
@@ -46,6 +48,7 @@ A hitelesítés arról szól, hogy meghatározzuk a felhasználó személyazonos
 Jelszószabály a regisztrációnál: legalább 8 karakter, betű és számjegy is legyen benne.
 
 ## Hogyan működik?
+
 
 ```
 1. Regisztráció     POST /auth/regisztracio { nev, email, jelszo }
@@ -84,10 +87,10 @@ await bcrypt.compare('jelszo123', hash);   // false
 
 A token három, ponttal elválasztott részből áll: `fejléc.tartalom.aláírás`
 
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 . eyJpZCI6MSwiZW1haWwiOiJ0ZXN6dEBwZWxkYS5odSIs... . oppBkvcWh4B90GSVMN2CH_6o...
-{"alg":"HS256","typ":"JWT"}            {"id":1,"email":"teszt@pelda.hu","iat":...,"exp":...}   HMAC-SHA256(fejléc.tartalom, JWT_SECRET)
-```
+    ```
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 . eyJpZCI6MSwiZW1haWwiOiJ0ZXN6dEBwZWxkYS5odSIs... . oppBkvcWh4B90GSVMN2CH_6o...
+    {"alg":"HS256","typ":"JWT"}            {"id":1,"email":"teszt@pelda.hu","iat":...,"exp":...}   HMAC-SHA256(fejléc.tartalom, JWT_SECRET)
+    ```
 
 - A **tartalom nincs titkosítva**, csak base64-gyel kódolva: bárki elolvashatja (próbáld ki a [jwt.io](https://jwt.io) oldalon). Ezért **soha ne tegyél bele jelszót** vagy más titkos adatot!
 - Az **aláírást** csak az tudja elkészíteni, aki ismeri a `JWT_SECRET`-et. Ha valaki átírja a tartalmat (pl. `"id":1` → `"id":2`), az aláírás már nem egyezik, és a `jwt.verify()` hibát dob → **401**.

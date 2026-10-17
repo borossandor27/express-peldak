@@ -24,6 +24,18 @@ const PORT = Number(process.env.PORT ?? 3000);
 
 app.use(express.json());
 
+// Express 5-ben a req.body undefined, ha a kérésnek nincs törzse, vagy nem JSON
+// (hiányzik a Content-Type: application/json fejléc). Ilyenkor a route-ban a
+// const { nev } = req.body sor TypeError-ral elszállna -> inkább érthető 400-at adunk.
+app.use((req, res, next) => {
+  if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body === undefined) {
+    return res.status(400).json({
+      hiba: 'Hiányzik a kérés törzse. Az adatokat JSON formában küldd, Content-Type: application/json fejléccel.',
+    });
+  }
+  next();
+});
+
 app.get('/', (req, res) => {
   res.json({
     uzenet: 'Könyvtár API szerepkörökkel',
