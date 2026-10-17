@@ -24,6 +24,25 @@ const PORT = 3000;
 // Enélkül a req.body undefined lenne POST/PUT/PATCH esetén!
 app.use(express.json());
 
+// Express 5-ben a req.body undefined, ha a kérésnek nincs törzse, vagy a törzs nem JSON
+// (hiányzik a Content-Type: application/json fejléc). Ilyenkor a const { ... } = req.body
+// sor TypeError-ral elszállna. Ezért:
+//   - van törzs, de nem JSON -> érthető 400-as hibaüzenet
+//   - nincs törzs            -> üres objektum, és a végpont saját ellenőrzése mondja meg,
+//                               mi hiányzik (a törzs nélküli PATCH végpontok is működnek)
+app.use((req, res, next) => {
+  if (req.body === undefined) {
+    const vanTorzs = Number(req.headers['content-length'] ?? 0) > 0 || req.headers['transfer-encoding'] !== undefined;
+    if (vanTorzs && ['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      return res.status(400).json({
+        hiba: 'A kérés törzse nem JSON. Az adatokat JSON formában küldd, Content-Type: application/json fejléccel.',
+      });
+    }
+    req.body = {};
+  }
+  next();
+});
+
 // ---------- Adatok betöltése és mentése ----------
 // import.meta.dirname = az aktuális fájl mappája (ES modulban nincs __dirname)
 const ADAT_FAJL = join(import.meta.dirname, 'data', 'konyvek.json');

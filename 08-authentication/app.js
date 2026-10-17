@@ -24,14 +24,21 @@ const PORT = Number(process.env.PORT ?? 3000);
 
 app.use(express.json());
 
-// Express 5-ben a req.body undefined, ha a kérésnek nincs törzse, vagy nem JSON
-// (hiányzik a Content-Type: application/json fejléc). Ilyenkor a route-ban a
-// const { nev } = req.body sor TypeError-ral elszállna -> inkább érthető 400-at adunk.
+// Express 5-ben a req.body undefined, ha a kérésnek nincs törzse, vagy a törzs nem JSON
+// (hiányzik a Content-Type: application/json fejléc). Ilyenkor a const { ... } = req.body
+// sor TypeError-ral elszállna. Ezért:
+//   - van törzs, de nem JSON -> érthető 400-as hibaüzenet
+//   - nincs törzs            -> üres objektum, és a végpont saját ellenőrzése mondja meg,
+//                               mi hiányzik (a törzs nélküli PATCH végpontok is működnek)
 app.use((req, res, next) => {
-  if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body === undefined) {
-    return res.status(400).json({
-      hiba: 'Hiányzik a kérés törzse. Az adatokat JSON formában küldd, Content-Type: application/json fejléccel.',
-    });
+  if (req.body === undefined) {
+    const vanTorzs = Number(req.headers['content-length'] ?? 0) > 0 || req.headers['transfer-encoding'] !== undefined;
+    if (vanTorzs && ['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      return res.status(400).json({
+        hiba: 'A kérés törzse nem JSON. Az adatokat JSON formában küldd, Content-Type: application/json fejléccel.',
+      });
+    }
+    req.body = {};
   }
   next();
 });
