@@ -1,0 +1,104 @@
+### =====================================================
+### 08 - Hitelesítés, tesztkérések (VS Code REST Client)
+###
+### Sorrend: először futtasd a "bejelentkezes" kérést! A válaszból
+### a token automatikusan a {{token}} változóba kerül, és a védett
+### kérések azt küldik el az Authorization fejlécben.
+### =====================================================
+
+@url = http://localhost:3000
+@token = {{bejelentkezes.response.body.token}}
+
+### Nyilvános végpont
+GET {{url}}/
+
+### Védett végpont token nélkül -> 401
+GET {{url}}/titkos
+
+### Védett végpont hamis tokennel -> 401
+GET {{url}}/titkos
+Authorization: Bearer ez.nem.igazi
+
+########## Regisztráció ##########
+
+### Új felhasználó -> 201 (másodszorra 409)
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{
+  "nev": "Kiss Anna",
+  "email": "kiss.anna@pelda.hu",
+  "jelszo": "Titkos2026"
+}
+
+### Hibás adatok -> 400
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{
+  "nev": "",
+  "email": "nem-email",
+  "jelszo": "rovid"
+}
+
+########## Bejelentkezés ##########
+
+### Bejelentkezés a mintafelhasználóval -> 200 + token
+# @name bejelentkezes
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{
+  "email": "teszt@pelda.hu",
+  "jelszo": "Jelszo123"
+}
+
+### Rossz jelszó -> 401
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{
+  "email": "teszt@pelda.hu",
+  "jelszo": "rossz-jelszo1"
+}
+
+### Nem létező e-mail -> 401 (UGYANAZ az üzenet, mint a rossz jelszónál!)
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{
+  "email": "senki@pelda.hu",
+  "jelszo": "Jelszo123"
+}
+
+########## Védett végpontok (előbb jelentkezz be!) ##########
+
+### Saját adatok
+GET {{url}}/auth/en
+Authorization: Bearer {{token}}
+
+### Titkos oldal
+GET {{url}}/titkos
+Authorization: Bearer {{token}}
+
+### Jelszócsere rossz régi jelszóval -> 401
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "regiJelszo": "nem-ez-volt1",
+  "ujJelszo": "UjJelszo2026"
+}
+
+### Jelszócsere -> 200
+### (Utána a mintafelhasználó jelszava UjJelszo2026 lesz!
+###  Az eredetihez importáld újra az SQL fájlt.)
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "regiJelszo": "Jelszo123",
+  "ujJelszo": "UjJelszo2026"
+}

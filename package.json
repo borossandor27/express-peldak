@@ -11,6 +11,8 @@
     "05": "node --watch 05-routing/app.js",
     "06": "node --watch 06-szamiras/app.js",
     "07": "cd 07-mysql && node --watch app.js",
+    "08": "cd 08-authentication && node --watch app.js",
+    "09": "cd 09-authorization && node --watch app.js",
     "06-teszt": "node --test 06-szamiras/teszt.js",
     "f01": "node --watch feladatok/01-nevjegy/app.js",
     "f02": "node --watch feladatok/02-szamologep/app.js",
@@ -90,8 +92,10 @@
     "ellenoriz": "node tesztek/ellenoriz.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.7",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.24.6"
   }
 }

@@ -1,0 +1,125 @@
+### =====================================================
+### 09 - Jogosultságkezelés, tesztkérések (VS Code REST Client)
+###
+### Először futtasd a három bejelentkezést! A tokenek automatikusan
+### a {{user}}, {{librarian}} és {{admin}} változókba kerülnek.
+### Mindhárom mintafelhasználó jelszava: Jelszo123
+### =====================================================
+
+@url = http://localhost:3000
+@user = {{loginUser.response.body.token}}
+@librarian = {{loginLibrarian.response.body.token}}
+@admin = {{loginAdmin.response.body.token}}
+
+########## Bejelentkezések ##########
+
+### Olvasó (user)
+# @name loginUser
+POST {{url}}/api/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "olvaso@konyvtar.hu", "jelszo": "Jelszo123" }
+
+### Könyvtáros (librarian)
+# @name loginLibrarian
+POST {{url}}/api/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "konyvtaros@konyvtar.hu", "jelszo": "Jelszo123" }
+
+### Admin
+# @name loginAdmin
+POST {{url}}/api/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "admin@konyvtar.hu", "jelszo": "Jelszo123" }
+
+########## Könyvek listázása: mindenki, aki be van jelentkezve ##########
+
+### Token nélkül -> 401
+GET {{url}}/api/konyvek
+
+### user -> 200
+GET {{url}}/api/konyvek
+Authorization: Bearer {{user}}
+
+########## Könyv felvétele: librarian, admin ##########
+
+### user -> 403 (be van jelentkezve, de nincs joga)
+POST {{url}}/api/konyvek
+Authorization: Bearer {{user}}
+Content-Type: application/json
+
+{ "cim": "Légy jó mindhalálig", "szerzo_id": 1, "ev": 1920 }
+
+### librarian -> 201
+POST {{url}}/api/konyvek
+Authorization: Bearer {{librarian}}
+Content-Type: application/json
+
+{ "cim": "Az ember tragédiája", "szerzo_id": 5, "ev": 1861 }
+
+### librarian, nem létező szerző -> 400
+POST {{url}}/api/konyvek
+Authorization: Bearer {{librarian}}
+Content-Type: application/json
+
+{ "cim": "Ismeretlen", "szerzo_id": 99, "ev": 2000 }
+
+########## Könyv törlése: csak admin ##########
+
+### librarian -> 403
+DELETE {{url}}/api/konyvek/7
+Authorization: Bearer {{librarian}}
+
+### admin -> 204 (a fent felvett könyv, ha 7-es id-t kapott)
+DELETE {{url}}/api/konyvek/7
+Authorization: Bearer {{admin}}
+
+### admin, kikölcsönzött könyv -> 409
+DELETE {{url}}/api/konyvek/3
+Authorization: Bearer {{admin}}
+
+########## Regisztráció: mindig user szerepkört kap ##########
+
+### Hiába kéri az admin szerepkört -> user lesz
+POST {{url}}/api/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Ügyes Ödön", "email": "odon@konyvtar.hu", "jelszo": "Jelszo123", "szerepkor": "admin" }
+
+########## Felhasználók kezelése: csak admin ##########
+
+### librarian -> 403
+GET {{url}}/api/felhasznalok
+Authorization: Bearer {{librarian}}
+
+### admin -> 200
+GET {{url}}/api/felhasznalok
+Authorization: Bearer {{admin}}
+
+### Az olvasó előléptetése könyvtárossá
+PATCH {{url}}/api/felhasznalok/1/szerepkor
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{ "szerepkor": "librarian" }
+
+### Saját szerepkör módosítása -> 400
+PATCH {{url}}/api/felhasznalok/3/szerepkor
+Authorization: Bearer {{admin}}
+Content-Type: application/json
+
+{ "szerepkor": "user" }
+
+### Az olvasó RÉGI tokenje még user szerepkört tartalmaz -> 403!
+### (Jelentkezz be újra az olvasóval, és próbáld meg ismét.)
+POST {{url}}/api/konyvek
+Authorization: Bearer {{user}}
+Content-Type: application/json
+
+{ "cim": "Légy jó mindhalálig", "szerzo_id": 1, "ev": 1920 }
+
+### Mit tartalmaz a token, és mi van az adatbázisban?
+GET {{url}}/api/auth/en
+Authorization: Bearer {{user}}

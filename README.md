@@ -9,6 +9,8 @@
 | 05 | `05-routing` | Több JSON erőforrás, `express.Router`, middleware, hibakezelés | `npm run 05` |
 | 06 | `06-szamiras` | Saját modul: számok betűvel (magyar helyesírás) és római számmal, `try...catch`, `node:test` | `npm run 06`, teszt: `npm run 06-teszt` |
 | 07 | [`07-mysql`](07-mysql/README.md) | CRUD **MySQL** adatbázissal, beállítások `.env` fájlban (`dotenv`), `insertId`, `affectedRows`, dinamikus `WHERE` / `SET` | `npm run 07` |
+| 08 | [`08-authentication`](08-authentication/README.md) | **Hitelesítés**: regisztráció, bejelentkezés, jelszó-hash (`bcryptjs`), JWT token, védett végpontok, 401 / 409 | `npm run 08` |
+| 09 | [`09-authorization`](09-authorization/README.md) | **Jogosultságkezelés**: szerepkörök (user / librarian / admin), `authorize` middleware, 401 vs. 403 | `npm run 09` |
 
 Minden szerver a **http://localhost:3000** címen fut (egyszerre csak egy indítható). Leállítás: `Ctrl + C`.
 A `--watch` kapcsoló miatt mentéskor a szerver magától újraindul.
