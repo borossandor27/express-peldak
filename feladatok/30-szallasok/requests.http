@@ -1,0 +1,60 @@
+### =====================================================
+### 30. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/szallasok.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Minden szállás (ár szerint)
+GET {{url}}/szallasok
+
+### Budapesti szállások
+GET {{url}}/szallasok?varos=Budapest
+
+### Legalább 4 csillag, medencével
+GET {{url}}/szallasok?minCsillag=4&medence=true
+
+### Legfeljebb 15000 Ft
+GET {{url}}/szallasok?maxAr=15000
+
+### Hibás medence érték -> 400
+GET {{url}}/szallasok?medence=igen
+
+### Hibás csillag -> 400
+GET {{url}}/szallasok?minCsillag=6
+
+### Egy szállás
+GET {{url}}/szallasok/2
+
+### Nem létező szállás -> 404
+GET {{url}}/szallasok/50
+
+### Városok statisztikával (Debrecen: 0, null, null)
+GET {{url}}/varosok
+
+### Legalább 2 szállásos városok (HAVING)
+GET {{url}}/varosok?minSzallas=2
+
+### Város szállás nélkül -> []
+GET {{url}}/varosok/6/szallasok
+
+### Nem létező város -> 404
+GET {{url}}/varosok/60/szallasok
+
+### Országok
+GET {{url}}/orszagok
+
+### Ajánlat: Eger, 3 éj, 2 fő
+GET {{url}}/ajanlat?varos=Eger&ej=3&fo=2
+
+### Hiányzó / hibás adatok -> 400 (3 hiba)
+GET {{url}}/ajanlat?ej=0
+
+### Nem létező város -> 404
+GET {{url}}/ajanlat?varos=Szeged&ej=1&fo=1
+
+### A 3 legjobb szállás
+GET {{url}}/legjobb/3
+
+### Hibás n -> 400
+GET {{url}}/legjobb/0

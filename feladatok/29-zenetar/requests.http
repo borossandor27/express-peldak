@@ -1,0 +1,54 @@
+### =====================================================
+### 29. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/zenetar.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Minden előadó
+GET {{url}}/eloadok
+
+### Magyar előadók
+GET {{url}}/eloadok?orszag=Magyarország
+
+### Egy előadó az albumaival
+GET {{url}}/eloadok/2
+
+### Előadó album nélkül -> albumok: []
+GET {{url}}/eloadok/7
+
+### Nem létező előadó -> 404
+GET {{url}}/eloadok/99
+
+### Hibás id -> 400
+GET {{url}}/eloadok/abc
+
+### Minden album (az előadó nevével)
+GET {{url}}/albumok
+
+### Pop albumok 1980 és 2010 között
+GET {{url}}/albumok?mufaj=pop&tol=1980&ig=2010
+
+### Hibás évszám -> 400
+GET {{url}}/albumok?tol=x
+
+### Keresés (címben vagy előadóban)
+GET {{url}}/albumok/kereses?q=op
+
+### Keresés előadónévre
+GET {{url}}/albumok/kereses?q=queen
+
+### Túl rövid keresés -> 400
+GET {{url}}/albumok/kereses?q=a
+
+### Műfajok
+GET {{url}}/mufajok
+
+### Előadók statisztikája (Carson Coma is!)
+GET {{url}}/statisztika/eloadok
+
+### Országok
+GET {{url}}/orszagok
+
+### Nem létező végpont -> 404
+GET {{url}}/semmi

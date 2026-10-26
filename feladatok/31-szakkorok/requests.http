@@ -1,0 +1,95 @@
+### =====================================================
+### 31. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/szakkorok.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Szakkörök (a hét napjai szerint)
+GET {{url}}/szakkorok
+
+### Keddi szakkörök
+GET {{url}}/szakkorok?nap=kedd
+
+### Ahol van még hely
+GET {{url}}/szakkorok?vanHely=true
+
+### Egy szakkör a diákjaival
+GET {{url}}/szakkorok/4
+
+### Szakkör diákok nélkül -> diakok: []
+GET {{url}}/szakkorok/6
+
+### Nem létező szakkör -> 404
+GET {{url}}/szakkorok/9
+
+### Egy osztály diákjai
+GET {{url}}/diakok?osztaly=11.A
+
+### Szakkör nélküli diákok
+GET {{url}}/diakok/szakkor-nelkul
+
+### Egy diák a szakköreivel
+GET {{url}}/diakok/1
+
+### Nem létező diák -> 404
+GET {{url}}/diakok/99
+
+### Napi ütközések
+GET {{url}}/utkozesek
+
+### Új jelentkezés -> 201
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": 12,
+  "szakkorId": 5
+}
+
+### Ugyanez még egyszer -> 409 (már jelentkezett)
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": 12,
+  "szakkorId": 5
+}
+
+### Betelt szakkör -> 409
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": 13,
+  "szakkorId": 4
+}
+
+### Aznap már van szakköre -> 409
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": 3,
+  "szakkorId": 6
+}
+
+### Nem létező diák -> 404
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": 99,
+  "szakkorId": 2
+}
+
+### Hibás adatok -> 400 (2 hiba)
+POST {{url}}/jelentkezesek
+Content-Type: application/json
+
+{
+  "diakId": "x"
+}
+
+### Jelentkezés törlése -> 204 (másodszorra 404)
+DELETE {{url}}/jelentkezesek/12/5

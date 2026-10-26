@@ -1,0 +1,86 @@
+### =====================================================
+### 32. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/webshop.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Minden rendelés
+GET {{url}}/rendelesek
+
+### Új rendelések
+GET {{url}}/rendelesek?statusz=új
+
+### Szeptemberi rendelések
+GET {{url}}/rendelesek?tol=2026-09-01&ig=2026-09-30
+
+### Nem létező nap -> 400
+GET {{url}}/rendelesek?tol=2026-02-30
+
+### Egy rendelés részletei
+GET {{url}}/rendelesek/4
+
+### Nem létező rendelés -> 404
+GET {{url}}/rendelesek/99
+
+### Vásárlók költése (a törölt rendelés nélkül, Varga Bence is!)
+GET {{url}}/vasarlok
+
+### Egy vásárló rendelései
+GET {{url}}/vasarlok/1/rendelesek
+
+### Vásárló rendelés nélkül -> []
+GET {{url}}/vasarlok/6/rendelesek
+
+### Nem létező vásárló -> 404
+GET {{url}}/vasarlok/9/rendelesek
+
+### Sosem rendelt termékek
+GET {{url}}/termekek/sosem-rendelt
+
+### Havi statisztika
+GET {{url}}/statisztika/havi
+
+### TOP 3 termék
+GET {{url}}/statisztika/top-termekek
+
+### TOP 5 termék
+GET {{url}}/statisztika/top-termekek?n=5
+
+### Hibás n -> 400
+GET {{url}}/statisztika/top-termekek?n=x
+
+### Kategóriák
+GET {{url}}/statisztika/kategoriak
+
+### SZORGALMI: új rendelés -> 201
+POST {{url}}/rendelesek
+Content-Type: application/json
+
+{
+  "vasarloId": 6,
+  "tetelek": [
+    { "termekId": 8, "db": 2 },
+    { "termekId": 1, "db": 1 }
+  ]
+}
+
+### SZORGALMI: nem létező termék -> 404
+POST {{url}}/rendelesek
+Content-Type: application/json
+
+{
+  "vasarloId": 6,
+  "tetelek": [{ "termekId": 80, "db": 2 }]
+}
+
+### SZORGALMI: hibás adatok -> 400
+POST {{url}}/rendelesek
+Content-Type: application/json
+
+{
+  "tetelek": [
+    { "termekId": 8, "db": 0 },
+    { "termekId": 8, "db": 1 }
+  ]
+}

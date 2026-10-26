@@ -1,0 +1,57 @@
+### =====================================================
+### 33. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/jaratok.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Minden járat (indulás szerint)
+GET {{url}}/jaratok
+
+### Budapest - London
+GET {{url}}/jaratok?honnan=bud&hova=LHR
+
+### A Lufthansa járatai
+GET {{url}}/jaratok?legitarsasag=LH
+
+### Hibás kód -> 400
+GET {{url}}/jaratok?honnan=BUDA
+
+### Egy járat
+GET {{url}}/jaratok/OS87
+
+### Nem létező járat -> 404
+GET {{url}}/jaratok/XX1
+
+### Repülőterek (induló, érkező járatok)
+GET {{url}}/repuloterek
+
+### Egy repülőtér (kisbetűvel is)
+GET {{url}}/repuloterek/deb
+
+### Nem létező repülőtér -> 404
+GET {{url}}/repuloterek/XYZ
+
+### Indulási tábla: Budapest
+GET {{url}}/repuloterek/BUD/indulasok
+
+### Indulási tábla: Debrecen -> []
+GET {{url}}/repuloterek/DEB/indulasok
+
+### Légitársaságok
+GET {{url}}/legitarsasagok
+
+### Útvonal: Budapest - New York (csak átszállással)
+GET {{url}}/utvonal?honnan=BUD&hova=JFK
+
+### Útvonal: Budapest - London (csak közvetlen)
+GET {{url}}/utvonal?honnan=BUD&hova=LHR
+
+### Útvonal: London - Róma (50 perc átszállás -> nincs találat)
+GET {{url}}/utvonal?honnan=LHR&hova=FCO
+
+### Azonos állomás -> 400
+GET {{url}}/utvonal?honnan=BUD&hova=BUD
+
+### Nem létező repülőtér -> 404
+GET {{url}}/utvonal?honnan=BUD&hova=XYZ
