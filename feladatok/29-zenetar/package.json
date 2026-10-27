@@ -1,0 +1,19 @@
+{
+  "name": "zenetar",
+  "version": "1.0.0",
+  "description": "Zenétár alkalmazás",
+  "main": "index.js",
+  "scripts": {
+    "f29": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.6"
+  }
+}

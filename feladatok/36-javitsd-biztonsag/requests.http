@@ -1,0 +1,136 @@
+### =====================================================
+### 36. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/biztonsag.sql fájlt
+###
+### Az első rész "rendes" kérései a javítás előtt és után is működjenek.
+### A második rész TÁMADÁSOK: a hibás programban sikerülnek,
+### a javított programban mindegyiknek 400-at, 401-et vagy 403-at kell adnia.
+### =====================================================
+
+@url = http://localhost:3000
+@anna = {{annaLogin.response.body.token}}
+@bela = {{belaLogin.response.body.token}}
+
+########## 1. RENDES HASZNÁLAT ##########
+
+# @name annaLogin
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "Anna1234" }
+
+###
+# @name belaLogin
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "bela@pelda.hu", "jelszo": "Bela1234" }
+
+### Saját adatok -> 200
+GET {{url}}/auth/en
+Authorization: Bearer {{bela}}
+
+### Névsor -> 200
+GET {{url}}/felhasznalok
+Authorization: Bearer {{bela}}
+
+### Keresés -> Kiss Anna
+GET {{url}}/felhasznalok/kereses?nev=anna
+Authorization: Bearer {{bela}}
+
+### Név módosítása -> 200
+PATCH {{url}}/auth/profil
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "nev": "Nagy Béla Bendegúz" }
+
+### Regisztráció -> 201 (másodszorra 409)
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Szabó Dénes", "email": "denes@pelda.hu", "jelszo": "Denes2026" }
+
+### Saját fiók törlése: Dénes belép...
+# @name denesLogin
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "denes@pelda.hu", "jelszo": "Denes2026" }
+
+### ...és törli magát -> 204 (az id a bejelentkezés válaszából jön)
+DELETE {{url}}/felhasznalok/{{denesLogin.response.body.felhasznalo.id}}
+Authorization: Bearer {{denesLogin.response.body.token}}
+
+########## 2. TÁMADÁSOK ##########
+
+### Mi van a tokenben? Másold be Béla tokenjét a https://jwt.io oldalra!
+### (Látszik benne valami, aminek nem kellene?)
+
+### Hamisított token: az aláírás kitalált. -> javítva: 401
+GET {{url}}/auth/en
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbm5hQHBlbGRhLmh1In0.hamisitott-alairas
+
+### Kitalálható titkos kulcs: a jwt.io oldalon a "titok123" kulccsal bárki
+### tud érvényes tokent aláírni. -> javítva: a kulcs a .env-ben van, és hosszú
+
+### Ki regisztrált? Létező e-mail, rossz jelszó...
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "csilla@pelda.hu", "jelszo": "rossz1234" }
+
+### ...és nem létező e-mail. -> javítva: a kettő válasza (státusz és üzenet) ugyanaz
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "nincs@pelda.hu", "jelszo": "rossz1234" }
+
+### Regisztráció válasza: mi van benne a nev, email mellett? -> javítva: csak id, nev, email
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Varga Edit", "email": "edit@pelda.hu", "jelszo": "Edit2026x" }
+
+### Névsor: mi van benne a neveken kívül? -> javítva: csak id és nev
+GET {{url}}/felhasznalok
+Authorization: Bearer {{bela}}
+
+### SQL befecskendezés a keresőben: kilistázza az e-mail címeket és a hash-eket -> javítva: []
+GET {{url}}/felhasznalok/kereses?nev='%20UNION%20SELECT%20email%2C%20jelszo_hash%20FROM%20felhasznalok%20--%20-
+Authorization: Bearer {{bela}}
+
+### Aposztróf a névben: a hibaüzenet elárulja a lekérdezést -> javítva: 200 + [] (és ha mégis szerverhiba lenne, csak { "hiba": "Szerverhiba" })
+GET {{url}}/felhasznalok/kereses?nev=O'Brien
+Authorization: Bearer {{bela}}
+
+### Béla adminná teszi magát -> javítva: 400 (csak a nev módosítható)
+PATCH {{url}}/auth/profil
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "szerep": "admin" }
+
+### Béla nézd meg: admin lett?
+GET {{url}}/auth/en
+Authorization: Bearer {{bela}}
+
+### Mezőnévvel is lehet SQL-t csempészni -> javítva: 400
+PATCH {{url}}/auth/profil
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "nev = 'Feltört', email": "feltort@pelda.hu" }
+
+### Jelszócsere a régi jelszó ismerete nélkül (pl. egy ellopott tokennel) -> javítva: 401
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "regiJelszo": "fogalmamsincs", "ujJelszo": "Feltortem123" }
+
+### Béla törli Csilla fiókját -> javítva: 403
+DELETE {{url}}/felhasznalok/3
+Authorization: Bearer {{bela}}
+
+### Lejárat: a token egy hét múlva is érvényes? -> javítva: az exp mező ott van a tokenben (jwt.io)

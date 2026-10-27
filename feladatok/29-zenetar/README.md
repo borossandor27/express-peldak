@@ -1,8 +1,4 @@
-# 29. feladat – Zenetár ★★
-
-**Indítás:** `npm run f29` · **Adatbázis:** `data/zenetar.sql` (adatbázis: `zenetar`) · **Teszteléshez:** `requests.http` · **Mintapélda:** `07-mysql`
-**Feladat:** [FELADATOK-4.md](../FELADATOK-4.md), 29. feladat
-**Előkészítés** (XAMPP, importálás, `.env`, `utils/db.js`): a fő [README.md](../../README.md) „Adatbázisos (MySQL) változatok” része.
+# Zenetár ★★
 
 ## Mit mutat be a feladat?
 

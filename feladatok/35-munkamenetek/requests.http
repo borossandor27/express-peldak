@@ -1,0 +1,152 @@
+### =====================================================
+### 35. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/munkamenetek.sql fájlt
+###
+### Sorrend: először futtasd a "laptop" bejelentkezést! A token a {{anna}} változóba kerül.
+### A {{telefon}}, {{regiLaptop}} és {{bela}} tokenek az SQL fájlban lévő munkamenetekhez tartoznak.
+### =====================================================
+
+@url = http://localhost:3000
+@anna = {{laptop.response.body.token}}
+@telefon = 27ed4ab16f1505573e1696754d14e46eaa97c6b91c8cd2778ef0ff4ef316435a
+@regiLaptop = bc208175a105974a54a8d8f73cb0675270ad56891e51d5d10f79186e37fd31ec
+@bela = 0f27c1ab38c46c06e5ede55efa060e3defd87aca909b6b03b8fcd6ac55e94ebb
+
+### Nyilvános végpont
+GET {{url}}/
+
+########## Bejelentkezés ##########
+
+# @name laptop
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "Anna1234", "eszkoz": "Anna laptopja" }
+
+### Eszköz nélkül -> az eszköz neve "ismeretlen eszköz"
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "Anna1234" }
+
+### Rossz jelszó -> 401
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "rossz1234" }
+
+### Nem létező e-mail -> 401, ugyanaz az üzenet
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "senki@pelda.hu", "jelszo": "Anna1234" }
+
+### Hiányzó adat -> 400
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu" }
+
+########## Tokenek ##########
+
+### Az új token -> 200
+GET {{url}}/auth/en
+Authorization: Bearer {{anna}}
+
+### A telefonos (régebbi, de még érvényes) token -> 200
+GET {{url}}/auth/en
+Authorization: Bearer {{telefon}}
+
+### Lejárt munkamenet -> 401
+GET {{url}}/auth/en
+Authorization: Bearer {{regiLaptop}}
+
+### Kitalált token -> 401
+GET {{url}}/auth/en
+Authorization: Bearer 0000000000000000000000000000000000000000000000000000000000000000
+
+### Token nélkül -> 401
+GET {{url}}/auth/en
+
+########## Munkamenetek listája ##########
+
+### Anna munkamenetei: a laptopos "jelenlegi": true, a lejárt NINCS benne,
+### Béla munkamenete sincs benne, token_hash sehol
+GET {{url}}/auth/munkamenetek
+Authorization: Bearer {{anna}}
+
+### Ugyanez a telefonról: most a telefonos a jelenlegi
+GET {{url}}/auth/munkamenetek
+Authorization: Bearer {{telefon}}
+
+### Béla munkamenetének törlése Anna nevében -> 404
+DELETE {{url}}/auth/munkamenetek/4
+Authorization: Bearer {{anna}}
+
+### Hibás id -> 400
+DELETE {{url}}/auth/munkamenetek/abc
+Authorization: Bearer {{anna}}
+
+### Az iskolai gép kiléptetése -> 204 (másodszorra 404)
+DELETE {{url}}/auth/munkamenetek/2
+Authorization: Bearer {{anna}}
+
+########## Kijelentkezés ##########
+
+### Kijelentkezés a telefonon -> 204
+POST {{url}}/auth/kijelentkezes
+Authorization: Bearer {{telefon}}
+
+### Ugyanaz a token újra -> 401 (JWT-vel ez NEM menne!)
+GET {{url}}/auth/en
+Authorization: Bearer {{telefon}}
+
+### Kijelentkezés mindenhol máshol -> { "kileptetve": ... }
+POST {{url}}/auth/kijelentkezes-mindenhol
+Authorization: Bearer {{anna}}
+
+### Csak a jelenlegi maradt
+GET {{url}}/auth/munkamenetek
+Authorization: Bearer {{anna}}
+
+########## Jelszócsere ##########
+
+### Előbb Anna egy második eszközön is bejelentkezik
+# @name tablet
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "Anna1234", "eszkoz": "Anna tabletje" }
+
+### Rossz régi jelszó -> 401
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "regiJelszo": "rossz1234", "ujJelszo": "UjJelszo2026" }
+
+### Gyenge új jelszó -> 400
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "regiJelszo": "Anna1234", "ujJelszo": "12345678" }
+
+### Jelszócsere -> 200, { "kileptetve": 1 } (a tablet)
+PATCH {{url}}/auth/jelszo
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "regiJelszo": "Anna1234", "ujJelszo": "UjJelszo2026" }
+
+### A tablet tokenje már nem jó -> 401
+GET {{url}}/auth/en
+Authorization: Bearer {{tablet.response.body.token}}
+
+### A laptopé (ahonnan a jelszót cserélte) igen -> 200
+GET {{url}}/auth/en
+Authorization: Bearer {{anna}}
+
+### Béla munkamenetét ez nem érintette -> 200
+GET {{url}}/auth/en
+Authorization: Bearer {{bela}}

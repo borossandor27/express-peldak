@@ -87,12 +87,13 @@ A 04-es és 05-ös példa **fájlba menti** a módosításokat (`data/*.json`). 
 
 ## Gyakorló feladatok
 
-33 feladat a `feladatok/` mappában, ebből 9 **MySQL adatbázissal** is elkészíthető, 5 pedig eleve adatbázisos:
+36 feladat a `feladatok/` mappában, ebből 9 **MySQL adatbázissal** is elkészíthető, 8 pedig eleve adatbázisos:
 
 - **1. rész (1–12.):** [feladatok/FELADATOK.md](feladatok/FELADATOK.md), indítás: `npm run f01` … `npm run f12`
 - **2. rész (13–22.):** [feladatok/FELADATOK-2.md](feladatok/FELADATOK-2.md), indítás: `npm run f13` … `npm run f22`
 - **3. rész (23–28.), hibapótló feladatok:** [feladatok/FELADATOK-3.md](feladatok/FELADATOK-3.md), indítás: `npm run f23` … `npm run f28`
 - **4. rész (29–33.), lekérdezések több táblából:** [feladatok/FELADATOK-4.md](feladatok/FELADATOK-4.md), csak MySQL-lel, mindegyik adatbázisban legalább két összekapcsolt tábla; indítás: `npm run f29` … `npm run f33`
+- **5. rész (34–36.), hitelesítés:** [feladatok/FELADATOK-5.md](feladatok/FELADATOK-5.md), MySQL-lel, a `08-authentication` példára épül: JWT, saját adatok, kijelentkezés, biztonsági hibák javítása; indítás: `npm run f34` … `npm run f36`
 - **MySQL-es változatok (6–7., 8–9., 10–11., 12., 17–21.):** ugyanazok a feladatok adatbázissal, indítás: `npm run f06-mysql`, `f08-mysql`, `f10-mysql`, `f12-mysql`, `f17-mysql` … `f21-mysql` (lásd lent)
 
 **Minden feladatmappában van egy `README.md`**: mit mutat be a feladat, és mire kell figyelni a megoldás során. Érdemes a feladat előtt elolvasni.
@@ -138,6 +139,9 @@ A 04-es és 05-ös példa **fájlba menti** a módosításokat (`data/*.json`). 
 | 31 | [31-szakkorok](feladatok/31-szakkorok/README.md) | MySQL, 3 tábla (N:M): kapcsolótábla, `IS NULL`, `GROUP_CONCAT`, 409 | 07 | `npm run f31` | |
 | 32 | [32-webshop](feladatok/32-webshop/README.md) | MySQL, 4 tábla: számított végösszeg, feltétel a `LEFT JOIN`-ban, havi statisztika | 07 | `npm run f32` | |
 | 33 | [33-jaratok](feladatok/33-jaratok/README.md) | MySQL, 3 tábla: két `JOIN` egy táblára, `TIME`, self-join | 07 | `npm run f33` | |
+| 34 | [34-jegyzetfuzet](feladatok/34-jegyzetfuzet/README.md) | hitelesítés: regisztráció, JWT, middleware, csak a saját adatok (404) | 08 | `npm run f34` | |
+| 35 | [35-munkamenetek](feladatok/35-munkamenetek/README.md) | szerveroldali token (SHA-256), kijelentkezés, eszközök kiléptetése | 08 | `npm run f35` | |
+| 36 | [36-javitsd-biztonsag](feladatok/36-javitsd-biztonsag/README.md) | hibakeresés: 12 biztonsági hiba (hamis token, SQL befecskendezés, …) | 08 | `npm run f36` | |
 
 A 23–28. feladathoz **automatikus ellenőrzés** is tartozik: `npm run t23` … `npm run t28` (a szervert nem kell elindítani hozzá). A 26. feladat validáló függvénye külön is tesztelhető: `npm run t26-fv`.
 
@@ -161,9 +165,9 @@ A `_mysql` végű mappákban **ugyanaz** a feladat van, mint a párjukban, de az
 | `20-jegynaplo_mysql` | `data/jegynaplo.sql` | `jegynaplo` | a `datum` valódi `DATE`; `ON DELETE CASCADE`, `CHECK` |
 | `21-mozi_mysql` | `data/mozi.sql` | `mozi` | 5 tábla: külön `termek` és `foglalt_helyek`; `DATE` + `TIME` |
 
-A 29–33. feladatnak nincs JSON-os párja: ezek **eleve adatbázisos** feladatok, a leírásuk a [FELADATOK-4.md](feladatok/FELADATOK-4.md)-ben van. Az előkészítés ugyanaz, mint lent.
+A 29–36. feladatnak nincs JSON-os párja: ezek **eleve adatbázisos** feladatok, a leírásuk a [FELADATOK-4.md](feladatok/FELADATOK-4.md)-ben és a [FELADATOK-5.md](feladatok/FELADATOK-5.md)-ben van. Az előkészítés ugyanaz, mint lent.
 
-A 07. példa, a 18–21. és a 29–33. feladat SQL fájljai **újra importálhatók**: a táblákat eldobják és újra létrehozzák, így visszaáll az eredeti állapot.
+A 07. példa, a 18–21. és a 29–36. feladat SQL fájljai **újra importálhatók**: a táblákat eldobják és újra létrehozzák, így visszaáll az eredeti állapot.
 
 ### Előkészítés
 

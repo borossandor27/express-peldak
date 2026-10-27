@@ -1,0 +1,204 @@
+### =====================================================
+### 34. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/jegyzetfuzet.sql fájlt
+###
+### Sorrend: először futtasd a két bejelentkezést (annaLogin, belaLogin)!
+### A válaszból a token automatikusan a {{anna}} és a {{bela}} változóba kerül.
+### =====================================================
+
+@url = http://localhost:3000
+@anna = {{annaLogin.response.body.token}}
+@bela = {{belaLogin.response.body.token}}
+
+### Nyilvános végpont
+GET {{url}}/
+
+########## Bejelentkezés ##########
+
+# @name annaLogin
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "Anna1234" }
+
+###
+# @name belaLogin
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "bela@pelda.hu", "jelszo": "Bela1234" }
+
+### Nagybetűs e-mail cím is működjön -> 200
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "Anna@Pelda.hu", "jelszo": "Anna1234" }
+
+### Rossz jelszó -> 401
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu", "jelszo": "rossz1234" }
+
+### Nem létező e-mail -> 401, UGYANAZ az üzenet, mint az előbb
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "nincs@pelda.hu", "jelszo": "Anna1234" }
+
+### Hiányzó jelszó -> 400
+POST {{url}}/auth/bejelentkezes
+Content-Type: application/json
+
+{ "email": "anna@pelda.hu" }
+
+########## Regisztráció ##########
+
+### Új felhasználó -> 201 (másodszorra 409)
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Szabó Dénes", "email": "denes@pelda.hu", "jelszo": "Denes2026" }
+
+### Foglalt e-mail, más írásmóddal -> 409
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Másik Anna", "email": "ANNA@pelda.hu", "jelszo": "Masik1234" }
+
+### Hibás adatok -> 400, mindhárom hiba egyszerre
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "  ", "email": "nem-email", "jelszo": "rovid" }
+
+### Csak betű a jelszóban -> 400
+POST {{url}}/auth/regisztracio
+Content-Type: application/json
+
+{ "nev": "Teszt", "email": "teszt2@pelda.hu", "jelszo": "csakbetuk" }
+
+########## Token nélkül ##########
+
+### Token nélkül -> 401
+GET {{url}}/jegyzetek
+
+### Hamis token -> 401
+GET {{url}}/jegyzetek
+Authorization: Bearer ez.nem.igazi
+
+### Rossz séma ("Token" a "Bearer" helyett) -> 401
+GET {{url}}/jegyzetek
+Authorization: Token {{anna}}
+
+########## Saját adatok ##########
+
+### Anna adatai, jegyzetDb: 3
+GET {{url}}/auth/en
+Authorization: Bearer {{anna}}
+
+########## Jegyzetek ##########
+
+### Anna jegyzetei: 4, 2, 1 (a legújabb elöl)
+GET {{url}}/jegyzetek
+Authorization: Bearer {{anna}}
+
+### Béla jegyzetei: 5, 3
+GET {{url}}/jegyzetek
+Authorization: Bearer {{bela}}
+
+### Keresés a címben vagy a szövegben -> Matek dolgozat
+GET {{url}}/jegyzetek?q=egyenlet
+Authorization: Bearer {{anna}}
+
+### Béla jegyzetében keres, de Anna nevében -> []
+GET {{url}}/jegyzetek?q=edzés
+Authorization: Bearer {{anna}}
+
+### Túl rövid keresőszó -> 400
+GET {{url}}/jegyzetek?q=a
+Authorization: Bearer {{anna}}
+
+### Anna saját jegyzete -> 200
+GET {{url}}/jegyzetek/2
+Authorization: Bearer {{anna}}
+
+### Béla jegyzete Anna tokenjével -> 404 (nem 403: ne derüljön ki, hogy létezik)
+GET {{url}}/jegyzetek/3
+Authorization: Bearer {{anna}}
+
+### Nem létező -> 404
+GET {{url}}/jegyzetek/999
+Authorization: Bearer {{anna}}
+
+### Hibás id -> 400
+GET {{url}}/jegyzetek/abc
+Authorization: Bearer {{anna}}
+
+### Új jegyzet -> 201. A felhasznaloId-t a szerver NEM veheti figyelembe:
+### a jegyzet Annáé lesz, nem Béláé!
+POST {{url}}/jegyzetek
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "cim": "Könyvtár", "szoveg": "Visszavinni: Egri csillagok", "felhasznaloId": 2 }
+
+### Béla jegyzetei között NEM jelenhet meg a Könyvtár
+GET {{url}}/jegyzetek
+Authorization: Bearer {{bela}}
+
+### Üres cím, hiányzó szöveg -> 400
+POST {{url}}/jegyzetek
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "cim": "   " }
+
+### Módosítás -> 200, a modositva kitöltődik
+PATCH {{url}}/jegyzetek/1
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "szoveg": "tej, kenyér, alma, sajt" }
+
+### Üres módosítás -> 400
+PATCH {{url}}/jegyzetek/1
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ }
+
+### Béla jegyzetének módosítása Anna tokenjével -> 404
+PATCH {{url}}/jegyzetek/5
+Authorization: Bearer {{anna}}
+Content-Type: application/json
+
+{ "cim": "Feltörve" }
+
+### Béla jegyzetének törlése Anna tokenjével -> 404
+DELETE {{url}}/jegyzetek/5
+Authorization: Bearer {{anna}}
+
+### Saját jegyzet törlése -> 204 (másodszorra 404)
+DELETE {{url}}/jegyzetek/4
+Authorization: Bearer {{anna}}
+
+########## Szorgalmi: fiók törlése ##########
+
+### Rossz jelszóval -> 401
+DELETE {{url}}/auth/fiok
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "jelszo": "rossz1234" }
+
+### Jó jelszóval -> 204, Béla jegyzetei is törlődnek
+DELETE {{url}}/auth/fiok
+Authorization: Bearer {{bela}}
+Content-Type: application/json
+
+{ "jelszo": "Bela1234" }
+
+### A token még érvényes, de a felhasználó már nincs -> 401
+GET {{url}}/auth/en
+Authorization: Bearer {{bela}}
