@@ -1,0 +1,89 @@
+### =====================================================
+### 39. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/sportnap.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Versenyszámok
+GET {{url}}/versenyszamok
+
+### 100 m rangsor (holtverseny a 3. helyen)
+GET {{url}}/versenyszamok/1/eredmenyek
+
+### Távolugrás, lányok (csökkenő sorrend)
+GET {{url}}/versenyszamok/2/eredmenyek?nem=lány
+
+### Hibás nem -> 400
+GET {{url}}/versenyszamok/1/eredmenyek?nem=x
+
+### Nem létező versenyszám -> 404
+GET {{url}}/versenyszamok/9/eredmenyek
+
+### Egy osztály diákjai
+GET {{url}}/diakok?osztaly=12.A
+
+### Egy diák eredményei helyezéssel
+GET {{url}}/diakok/9
+
+### Diák eredmény nélkül -> eredmenyek: []
+GET {{url}}/diakok/11
+
+### Nem létező diák -> 404
+GET {{url}}/diakok/99
+
+### Osztályok
+GET {{url}}/osztalyok
+
+### Pontverseny
+GET {{url}}/pontverseny
+
+### Új eredmény -> 201 (helyezéssel)
+POST {{url}}/eredmenyek
+Content-Type: application/json
+
+{
+  "diakId": 11,
+  "versenyszamId": 1,
+  "eredmeny": 12.6
+}
+
+### Ugyanez még egyszer -> 409
+POST {{url}}/eredmenyek
+Content-Type: application/json
+
+{
+  "diakId": 11,
+  "versenyszamId": 1,
+  "eredmeny": 12.9
+}
+
+### Nem létező diák -> 404
+POST {{url}}/eredmenyek
+Content-Type: application/json
+
+{
+  "diakId": 99,
+  "versenyszamId": 1,
+  "eredmeny": 13
+}
+
+### Negatív eredmény -> 400
+POST {{url}}/eredmenyek
+Content-Type: application/json
+
+{
+  "diakId": 1,
+  "versenyszamId": 3,
+  "eredmeny": -2
+}
+
+### Három tizedesjegy -> 400
+POST {{url}}/eredmenyek
+Content-Type: application/json
+
+{
+  "diakId": 1,
+  "versenyszamId": 3,
+  "eredmeny": 40.123
+}

@@ -1,0 +1,101 @@
+### =====================================================
+### 37. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/rendelo.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Gazdák (Molnár Petra: 0 állat)
+GET {{url}}/gazdak
+
+### Érdi gazdák
+GET {{url}}/gazdak?varos=Érd
+
+### Egy gazda az állataival
+GET {{url}}/gazdak/1
+
+### Gazda állat nélkül -> allatok: []
+GET {{url}}/gazdak/5
+
+### Nem létező gazda -> 404
+GET {{url}}/gazdak/9
+
+### Hibás id -> 400
+GET {{url}}/gazdak/x
+
+### Kutyák
+GET {{url}}/allatok?faj=kutya
+
+### Kezelés nélküli állatok
+GET {{url}}/allatok/kezeles-nelkul
+
+### Egy állat: gazda objektum + kezelések
+GET {{url}}/allatok/3
+
+### Állat kezelés nélkül -> kezelesek: [], osszesDij: 0
+GET {{url}}/allatok/7
+
+### Nem létező állat -> 404
+GET {{url}}/allatok/99
+
+### Kezelések: tavasszal, kutyák
+GET {{url}}/kezelesek?tol=2026-03-01&ig=2026-06-30&faj=kutya
+
+### Macskák kezelései
+GET {{url}}/kezelesek?faj=macska
+
+### Hibás dátum -> 400
+GET {{url}}/kezelesek?tol=2026-13-01
+
+### Fajok statisztikája
+GET {{url}}/statisztika/fajok
+
+### Havi bontás
+GET {{url}}/statisztika/havi
+
+### Gazdák költése (Molnár Petra is!)
+GET {{url}}/statisztika/gazdak
+
+### Nem létező végpont -> 404
+GET {{url}}/semmi
+
+### Új kezelés -> 201
+POST {{url}}/kezelesek
+Content-Type: application/json
+
+{
+  "allatId": 7,
+  "leiras": "Éves oltás",
+  "dij": 12000,
+  "datum": "2026-11-02"
+}
+
+### Új kezelés dátum nélkül (mai nap) -> 201
+POST {{url}}/kezelesek
+Content-Type: application/json
+
+{
+  "allatId": 7,
+  "leiras": "Chip beültetése",
+  "dij": 9000
+}
+
+### Nem létező állat -> 404
+POST {{url}}/kezelesek
+Content-Type: application/json
+
+{
+  "allatId": 70,
+  "leiras": "Vizsgálat",
+  "dij": 5000
+}
+
+### Hibás adatok -> 400 (4 hiba)
+POST {{url}}/kezelesek
+Content-Type: application/json
+
+{
+  "leiras": " ",
+  "dij": -5,
+  "datum": "2026-02-30"
+}

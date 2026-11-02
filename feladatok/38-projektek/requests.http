@@ -1,0 +1,102 @@
+### =====================================================
+### 38. feladat - tesztkérések (VS Code REST Client)
+### Az eredeti adatokhoz: importáld újra a data/projektek.sql fájlt
+### =====================================================
+
+@url = http://localhost:3000
+
+### Dolgozók (Gulyás Ferenc: 0 óra)
+GET {{url}}/dolgozok
+
+### Egy dolgozó, projektenként
+GET {{url}}/dolgozok/1
+
+### Dolgozó munkaóra nélkül
+GET {{url}}/dolgozok/6
+
+### Nem létező dolgozó -> 404
+GET {{url}}/dolgozok/60
+
+### Projektek költséggel
+GET {{url}}/projektek
+
+### Egy ügyfél projektjei
+GET {{url}}/projektek?ugyfel=Kerekes Kft.
+
+### Keretet túllépő projektek
+GET {{url}}/projektek/tullepett
+
+### Egy projekt a dolgozóival
+GET {{url}}/projektek/3
+
+### Projekt munkaóra nélkül
+GET {{url}}/projektek/4
+
+### Nem létező projekt -> 404
+GET {{url}}/projektek/40
+
+### Egy dolgozó munkaórái
+GET {{url}}/munkaorak?dolgozoId=4
+
+### Egy projekt munkaórái 2026-10-08-tól
+GET {{url}}/munkaorak?projektId=2&tol=2026-10-08
+
+### Hibás szűrő -> 400
+GET {{url}}/munkaorak?dolgozoId=x
+
+### Munkakörök statisztikája
+GET {{url}}/statisztika/munkakorok
+
+### Új munkaóra -> 201
+POST {{url}}/munkaorak
+Content-Type: application/json
+
+{
+  "dolgozoId": 6,
+  "projektId": 4,
+  "datum": "2026-10-12",
+  "ora": 7.5
+}
+
+### Ugyanaz a nap még 1 óra -> 409 (csak 0,5 fér bele)
+POST {{url}}/munkaorak
+Content-Type: application/json
+
+{
+  "dolgozoId": 6,
+  "projektId": 1,
+  "datum": "2026-10-12",
+  "ora": 1
+}
+
+### Aznap már 8 óra van rögzítve -> 409
+POST {{url}}/munkaorak
+Content-Type: application/json
+
+{
+  "dolgozoId": 1,
+  "projektId": 2,
+  "datum": "2026-10-06",
+  "ora": 0.5
+}
+
+### Nem létező dolgozó -> 404
+POST {{url}}/munkaorak
+Content-Type: application/json
+
+{
+  "dolgozoId": 9,
+  "projektId": 1,
+  "datum": "2026-10-12",
+  "ora": 1
+}
+
+### Hibás adatok -> 400 (4 hiba)
+POST {{url}}/munkaorak
+Content-Type: application/json
+
+{
+  "dolgozoId": "1",
+  "datum": "2026-02-30",
+  "ora": 2.3
+}
