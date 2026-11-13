@@ -88,7 +88,7 @@
     "m30": "cd megoldasok/30-szallasok && node --watch app.js",
     "m31": "cd megoldasok/31-szakkorok && node --watch app.js",
     "m32": "cd megoldasok/32-webshop && node --watch app.js",
-    "m33": "cd megoldasok/33-jaratok && node --watch app.js",
+    "m33": "cd megoldasok/33-jaratok && node --watch index.js",
     "m34": "cd megoldasok/34-jegyzetfuzet && node --watch app.js",
     "m35": "cd megoldasok/35-munkamenetek && node --watch app.js",
     "m36": "cd megoldasok/36-javitsd-biztonsag && node --watch app.js",
