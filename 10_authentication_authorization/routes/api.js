@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
         });
     }
 
-    // Felhasználó keresése
+    // Felhasználó keresése - élesben az adatbázisból vesszük az adatokat
     const user = req.app.locals.users.find(
         u => u.username === username
     );
@@ -48,12 +48,12 @@ router.post("/login", async (req, res) => {
         });
     }
 
-    // JWT létrehozása
+    // JWT létrehozása. 
     const token = jwt.sign(
         {
             role: user.role
         },
-        process.env.JWT_SECRET,
+        process.env.JWT_SECRET, // szakirodalomban PEPPER
         {
             subject: String(user.id),
             expiresIn: "1h"
